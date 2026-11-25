@@ -1,187 +1,644 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="color-scheme" content="light"/>
-  <title>SOUND PLAYGROUND | Four-voice instrument prototype</title>
-  <style>
-    :root{--ink:#252b30;--paper:#f5f5f1;--line:#d5d8d5;--sub:#606e74;--p:#54a7b9;--b:#8e76b3;--r:#c4994f;--m:#a87680}
-    *{box-sizing:border-box}body{margin:0;background:#ecefeb;color:var(--ink);font-family:Inter,Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}button,input{font:inherit}
-    .wrap{max-width:1300px;margin:auto;padding:24px 25px 20px}.topline{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #b8bdbb;padding-bottom:12px;gap:24px}h1{font-size:clamp(22px,2.5vw,32px);font-weight:600;letter-spacing:.11em;margin:0}.tag{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--sub)}.lede{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:16px 0 19px}.lede p{font-size:14px;color:#536067;line-height:1.5;margin:0;max-width:650px}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.btn{border:1px solid #abb3b2;padding:10px 14px;border-radius:3px;color:var(--ink);background:#fff;cursor:pointer;font-size:13px;font-weight:600}.btn.primary{background:#27323a;color:#fff;border-color:#27323a}.btn:disabled{opacity:.45;cursor:not-allowed}.btn:hover:not(:disabled){filter:brightness(.96)}
-    .monitor{background:#151a1c;padding:13px 13px 9px;border-radius:5px;box-shadow:0 9px 23px #28303613}.monitor-bar{display:flex;justify-content:space-between;align-items:center;gap:14px;color:#e2e6e2;font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin:0 0 9px}.monitor-bar span:last-child{color:#aab5b4}.monitor canvas{width:100%;height:auto;display:block;background:#12191c;aspect-ratio:16/9}.monitor-foot{display:flex;align-items:center;gap:16px;margin-top:9px;color:#b9c5bf;font-size:11px;letter-spacing:.04em}.legend{display:flex;gap:12px;flex-wrap:wrap;margin-left:auto}.dot{display:inline-block;height:7px;width:7px;border-radius:50%;margin-right:5px;vertical-align:1px}
-    .console{margin-top:18px;background:#f8f8f5;border:1px solid #d0d4d0;box-shadow:0 6px 26px #25373a11;border-radius:6px;padding:18px 19px}.stations{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.station{border:1px solid #cfd3d0;min-width:0;border-radius:5px;background:#fff;padding:16px 15px 13px;display:flex;flex-direction:column;gap:13px;--accent:#537}.station.pulse{--accent:var(--p)}.station.breath{--accent:var(--b)}.station.resonance{--accent:var(--r)}.station.movement{--accent:var(--m)}.station header{display:flex;justify-content:space-between;align-items:baseline;gap:5px}.station h2{margin:0;font-size:13px;letter-spacing:.16em;font-weight:700}.station .index{font-size:11px;color:#9aa4a6}.instrument{display:flex;align-items:center;gap:10px}.pad{width:93px;height:93px;border-radius:50%;border:3px solid #e1e4e3;box-shadow:inset 0 2px 5px #fff9,0 3px 0 #bbc5c3;flex:0 0 93px;cursor:pointer;background:radial-gradient(circle at 43% 31%,#fff,var(--accent));position:relative;touch-action:none;user-select:none;-webkit-user-select:none;outline-offset:5px;transition:transform .06s ease,box-shadow .06s ease}.pad:after{content:'';width:51px;height:51px;position:absolute;left:19px;top:19px;border-radius:100%;border:1px solid #ffffff75}.pad.pressed{transform:translateY(3px);box-shadow:inset 0 1px 8px #3343,0 0 0 4px color-mix(in srgb,var(--accent),transparent 64%)}.pad:focus-visible{outline:3px solid var(--accent)}.pad-label{color:#637075;font-size:11px;line-height:1.4;min-width:0}.knobbox{border-top:1px solid #edf0ed;padding-top:12px}.knobtitle{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#5c6b6e;gap:12px}.knobtitle output{font-variant-numeric:tabular-nums;color:#25343a}.knob{margin-top:10px;width:100%;accent-color:var(--accent);cursor:pointer}.hint{color:#738083;font-size:11px;line-height:1.45;min-height:33px;margin:0}.station footer{font-size:10px;color:#8a9796;letter-spacing:.08em}.bottom{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-top:16px;font-size:12px;color:#5f6b70}.status{min-height:20px}.control-row{display:flex;align-items:center;gap:7px}.control-row input{accent-color:#3d626e;width:85px}.session{border-top:1px solid #d3d7d4;margin-top:15px;padding-top:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.session .group-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#5c6b70;margin-right:8px}.session small{color:#707e80}.saved{font-size:13px;margin-top:12px;min-height:18px}.saved a{color:#285a79;text-decoration:underline}.note{font-size:11px;color:#6d7b7e;margin-top:18px;line-height:1.5}.note strong{color:#4b575b}
-    @media (max-width:940px){.stations{grid-template-columns:repeat(2,minmax(0,1fr))}.lede{align-items:flex-start;flex-direction:column}.bottom{flex-wrap:wrap}.wrap{padding:14px}.monitor-foot{flex-wrap:wrap}.legend{margin:0}}
-    @media (max-width:500px){.stations{grid-template-columns:1fr}.station{padding:14px}.instrument{gap:15px}.monitor-bar{font-size:9px}.monitor-foot{font-size:9px}.tag{display:none}.topline{padding:5px 0 12px}.console{padding:12px}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>SOUND PLAYGROUND | Interactive digital sketch</title>
+<style>
+:root{
+  --ink:#232a2e;--sub:#5d6a6f;--faint:#8b979a;--line:#d3d7d4;--bg:#eceeea;--card:#fbfbf9;--white:#fff;
+  --pulse:#4f9fb2;--breath:#8a74b0;--resonance:#bf9349;--movement:#a5727d;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding:22px 24px 28px}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:20px;border-bottom:1px solid #b9bfbc;padding-bottom:12px}
+h1{margin:0;font-size:clamp(20px,2.4vw,30px);font-weight:600;letter-spacing:.12em}
+.tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+.lede{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:15px 0 18px}
+.lede p{margin:0;max-width:640px;font-size:14px;line-height:1.55;color:#4f5c61}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid #a9b1b0;background:var(--white);color:var(--ink);padding:10px 14px;border-radius:3px;font-size:13px;font-weight:600;cursor:pointer;min-height:40px}
+.btn.primary{background:#26313a;border-color:#26313a;color:#fff}
+.btn.primary.on{background:#fff;color:#26313a}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,.pad:focus-visible,.dial:focus-visible{outline:3px solid #2f6f86;outline-offset:3px}
+.monitor{background:#141a1d;border-radius:5px;padding:12px 12px 9px}
+.mbar,.mfoot{display:flex;justify-content:space-between;align-items:center;gap:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#d9dfdc}
+.mbar{margin-bottom:9px}.mbar span:last-child{color:#9fadac;font-variant-numeric:tabular-nums}
+.mfoot{margin-top:9px;letter-spacing:.05em;text-transform:none;color:#b3c0bb}
+canvas{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#11171a}
+.legend{display:flex;gap:12px;flex-wrap:wrap}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:1px}
+.console{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px}
+.consolehead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin:0 2px 12px}
+.stations{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.station{--accent:#567;background:var(--white);border:1px solid #d0d4d1;border-radius:5px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.station.pulse{--accent:var(--pulse)}.station.breath{--accent:var(--breath)}.station.resonance{--accent:var(--resonance)}.station.movement{--accent:var(--movement)}
+.station header{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+.station h2{margin:0;font-size:13px;font-weight:700;letter-spacing:.16em}
+.station header span{font-size:11px;color:var(--faint)}
+.controls{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pad{width:96px;height:96px;flex:0 0 96px;border-radius:50%;border:3px solid #e0e3e2;cursor:pointer;position:relative;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;
+  background:radial-gradient(circle at 42% 34%,#fff 0,color-mix(in srgb,var(--accent) 55%,#fff) 55%,var(--accent) 100%);box-shadow:inset 0 2px 5px #fff9,0 3px 0 #b9c3c1;transition:transform .05s,box-shadow .05s}
+.pad::after{content:"";position:absolute;inset:22px;border-radius:50%;border:1px solid #ffffff80}
+.pad.pressed{transform:translateY(3px);box-shadow:inset 0 2px 9px #2a343a55,0 0 0 5px color-mix(in srgb,var(--accent) 35%,transparent)}
+.dialbox{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.dial{width:74px;height:74px;border-radius:50%;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.dial.drag{cursor:grabbing}
+.dial svg{width:100%;height:100%;display:block;overflow:visible}
+.dialbox label{font-size:11px;color:var(--sub);letter-spacing:.04em}
+.dialbox output{font-size:12px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.hint{margin:0;font-size:11.5px;line-height:1.45;color:#6c797c;min-height:34px}
+.station footer{font-size:10px;letter-spacing:.08em;color:var(--faint)}
+.bottom{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--sub)}
+.status{min-height:18px}
+.vol{display:flex;align-items:center;gap:8px}.vol input{width:110px;accent-color:#3d626e}
+.session{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:14px;padding-top:14px}
+.session .gt{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin-right:6px}
+.session small{color:#6f7c7f;font-variant-numeric:tabular-nums}
+.recbar{flex:1 1 120px;max-width:220px;height:4px;background:#e2e5e3;border-radius:2px;overflow:hidden}
+.recbar i{display:block;height:100%;width:0;background:#b04a3f}
+.saved{margin-top:10px;font-size:13px;min-height:18px;line-height:1.6}
+.saved a{color:#245876}
+.note{margin-top:16px;font-size:11.5px;line-height:1.55;color:#66737a}
+.note strong{color:#434f54}
+@media (max-width:980px){.stations{grid-template-columns:repeat(2,minmax(0,1fr))}.lede{flex-direction:column;align-items:flex-start}}
+@media (max-width:540px){.wrap{padding:14px 16px 22px}.stations{gap:8px}.station{padding:10px;gap:8px}.controls{flex-direction:column;gap:6px}.pad{width:84px;height:84px;flex-basis:84px}.dial{width:60px;height:60px}.station .hint,.station footer{display:none}.station header span{display:none}.tag{display:none}.mbar,.mfoot{font-size:9px}.console{padding:12px}.legend{display:none}}
+</style>
 </head>
 <body>
 <div class="wrap">
-  <div class="topline"><h1>SOUND PLAYGROUND</h1><div class="tag">Interactive music and architectural light | Browser study 0.1</div></div>
-  <div class="lede"><p>Four people, four musical gestures, one shared composition. Press and hold the pads, turn the controls, and hear the instruments change while a simplified Palace responds.</p><div class="actions"><button class="btn primary" id="start">Enable sound</button><button class="btn" id="reset">Reset composition</button></div></div>
-  <section class="monitor" aria-label="Shared Palace visual preview">
-    <div class="monitor-bar"><span>Karlsruhe Palace / simplified mapping preview</span><span id="time">00:00</span></div>
-    <canvas id="palace" width="1280" height="720" aria-label="Animated depiction of Palace columns and windows responding to musical instruments"></canvas>
-    <div class="monitor-foot"><span id="caption">Ready to play</span><div class="legend"><span><i class="dot" style="background:var(--p)"></i>Pulse</span><span><i class="dot" style="background:var(--b)"></i>Breath</span><span><i class="dot" style="background:var(--r)"></i>Resonance</span><span><i class="dot" style="background:var(--m)"></i>Movement</span></div></div>
-  </section>
-  <section class="console" aria-label="Four simulated sculpture stations">
-    <div class="stations">
-      <article class="station pulse"><header><h2>PULSE</h2><span class="index">01 / Rhythm</span></header><div class="instrument"><button class="pad" data-instrument="pulse" aria-label="Pulse pad, press or hold" title="Hold for rhythmic beats, tap for a single beat"></button><div class="pad-label">Tap a beat.<br>Hold for a pulse.</div></div><div class="knobbox"><div class="knobtitle"><label for="knob-pulse">Density</label><output id="value-pulse">44%</output></div><input class="knob" type="range" id="knob-pulse" data-knob="pulse" min="0" max="100" value="44"/></div><p class="hint">Rhythmic energy animates the Palace windows.</p><footer>Hold key 1 to play</footer></article>
-      <article class="station breath"><header><h2>BREATH</h2><span class="index">02 / Atmosphere</span></header><div class="instrument"><button class="pad" data-instrument="breath" aria-label="Breath pad, press or hold" title="Hold for a continuous drifting texture"></button><div class="pad-label">Press to swell.<br>Hold to sustain.</div></div><div class="knobbox"><div class="knobtitle"><label for="knob-breath">Tone</label><output id="value-breath">54%</output></div><input class="knob" type="range" id="knob-breath" data-knob="breath" min="0" max="100" value="54"/></div><p class="hint">Sustained sound creates layers of light across the facade.</p><footer>Hold key 2 to play</footer></article>
-      <article class="station resonance"><header><h2>RESONANCE</h2><span class="index">03 / Harmony</span></header><div class="instrument"><button class="pad" data-instrument="resonance" aria-label="Resonance pad, press or hold" title="Press to play chord tones"></button><div class="pad-label">Strike a chord.<br>Hold to repeat.</div></div><div class="knobbox"><div class="knobtitle"><label for="knob-resonance">Harmony</label><output id="value-resonance">32%</output></div><input class="knob" type="range" id="knob-resonance" data-knob="resonance" min="0" max="100" value="32"/></div><p class="hint">Harmonic waves illuminate the geometry of the Palace.</p><footer>Hold key 3 to play</footer></article>
-      <article class="station movement"><header><h2>MOVEMENT</h2><span class="index">04 / Space</span></header><div class="instrument"><button class="pad" data-instrument="movement" aria-label="Movement pad, press or hold" title="Press to sweep sound from left to right"></button><div class="pad-label">Send sound across.<br>Hold to travel.</div></div><div class="knobbox"><div class="knobtitle"><label for="knob-movement">Direction</label><output id="value-movement">70%</output></div><input class="knob" type="range" id="knob-movement" data-knob="movement" min="0" max="100" value="70"/></div><p class="hint">Sound pans across stereo while light travels between columns.</p><footer>Hold key 4 to play</footer></article>
+  <div class="top"><h1>SOUND PLAYGROUND</h1><div class="tag">Interactive digital sketch · browser study 0.2</div></div>
+  <div class="lede">
+    <p>Four people, four musical gestures, one shared composition. Press and hold the pads, turn the rotary controls, and hear the four voices combine while a schematic Palace responds.</p>
+    <div class="actions"><button class="btn primary" id="start">Enable sound</button><button class="btn" id="reset">Reset</button></div>
+  </div>
+
+  <section class="monitor" aria-label="Shared screen: schematic Palace preview">
+    <div class="mbar"><span>Shared screen · schematic Palace preview</span><span id="clock">00:00</span></div>
+    <canvas id="palace" width="1280" height="720" role="img" aria-label="Schematic elevation of Karlsruhe Palace whose windows, roof and pilasters light up in response to the four voices"></canvas>
+    <div class="mfoot"><span id="caption">Sound is off · press Enable sound or any pad</span>
+      <div class="legend"><span><i class="dot" style="background:var(--pulse)"></i>Pulse</span><span><i class="dot" style="background:var(--breath)"></i>Breath</span><span><i class="dot" style="background:var(--resonance)"></i>Resonance</span><span><i class="dot" style="background:var(--movement)"></i>Movement</span></div>
     </div>
-    <div class="bottom"><div class="status" id="status" role="status">Click “Enable sound” to begin. Nothing is uploaded.</div><label class="control-row" for="volume">Volume <input id="volume" type="range" value="65" min="0" max="100"/></label></div>
-    <div class="session"><span class="group-title">Capture a sample</span><button class="btn" id="record30" disabled>Record 30 seconds</button><button class="btn" id="record180" disabled>Record 3 minutes</button><button class="btn" id="stoprecord" disabled>Stop recording</button><small id="recordstatus">Audio + visual capture in supported browsers</small></div><div class="saved" id="saved"></div>
   </section>
-  <div class="note"><strong>Prototype, not the final installation.</strong> Sound is synthesized locally in the browser, with no Max or Notch integration. The Palace geometry is illustrative and does not constitute the festival projection-mapping master. Recording saves a WebM audiovisual file and a JSON control-event log to your device. No data is transmitted.</div>
+
+  <section class="console" aria-label="Four player stations">
+    <div class="consolehead"><span>Four stations · one pad and one rotary control each</span><span id="players">0 of 4 playing</span></div>
+    <div class="stations" id="stations"></div>
+    <div class="bottom">
+      <div class="status" id="status" role="status" aria-live="polite">Press “Enable sound” to begin. Nothing is uploaded.</div>
+      <label class="vol" for="volume">Volume <input id="volume" type="range" min="0" max="100" value="70"></label>
+    </div>
+    <div class="session">
+      <span class="gt">Capture</span>
+      <button class="btn" id="rec30">Record 30 s</button>
+      <button class="btn" id="rec180">Record 3 min</button>
+      <button class="btn" id="recstop" disabled>Stop</button>
+      <div class="recbar" aria-hidden="true"><i id="recprog"></i></div>
+      <small id="recstatus">Video + sound + gesture log, saved to this device only</small>
+    </div>
+    <div class="saved" id="saved"></div>
+  </section>
+
+  <p class="note"><strong>Prototype, not the installation.</strong> Sound is synthesised in this browser with the Web Audio API; it is not the Max/MSP instrument. The Palace image is a simplified schematic drawn for this sketch. It is not festival projection-mapping geometry, and it is not a Notch render. Recordings stay on this device; nothing is transmitted.</p>
 </div>
+
 <script>
 (() => {
-  'use strict';
-  const $=id=>document.getElementById(id);
-  const canvas=$('palace'), c=canvas.getContext('2d');
-  const W=canvas.width,H=canvas.height;
-  const names=['pulse','breath','resonance','movement'];
-  const colours={pulse:[84,167,185],breath:[142,118,179],resonance:[196,153,79],movement:[168,118,128]};
-  const active=Object.fromEntries(names.map(n=>[n,false]));
-  const energy=Object.fromEntries(names.map(n=>[n,0]));
-  const knobs={pulse:.44,breath:.54,resonance:.32,movement:.70};
-  const padNodes=Object.fromEntries(names.map(n=>[n,document.querySelector(`[data-instrument="${n}"]`)]));
-  let ctx,master,compressor,recordDest,noiseBuf,breathNodes=null,started=0,tickAt=0,scheduleTimer=null,eighth=0;
-  let rec=null,recChunks=[],recStopTimer=null,recStart=0,recEvents=[],activeRecording=false,lastLog=[],recType='video/webm';
-  let currentRecordStream=null;let sessionSeconds=0;let visualOffset=0;
-  const setStatus=s=>{$('status').textContent=s};
-  function log(kind,part,value){if(activeRecording)recEvents.push({t:+((performance.now()-recStart)/1000).toFixed(3),type:kind,station:part,value});}
-  function audioSetup(){
-    if(ctx)return;
-    const Audio=window.AudioContext||window.webkitAudioContext;
-    if(!Audio){setStatus('This browser does not support Web Audio.');return}
-    ctx=new Audio({latencyHint:'interactive',sampleRate:48000});
-    master=ctx.createGain();master.gain.value=.65;
-    compressor=ctx.createDynamicsCompressor();compressor.threshold.value=-14;compressor.ratio.value=3;compressor.attack.value=.005;compressor.release.value=.25;
-    master.connect(compressor);compressor.connect(ctx.destination);
-    recordDest=ctx.createMediaStreamDestination();compressor.connect(recordDest);
-    noiseBuf=ctx.createBuffer(1,ctx.sampleRate*2,ctx.sampleRate);let d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
-    started=ctx.currentTime;scheduleTimer=setInterval(schedule,25);tickAt=ctx.currentTime+.08;schedule();
-    $('record30').disabled=false;$('record180').disabled=false;
-  }
-  async function enable(){audioSetup();if(!ctx)return;await ctx.resume();setStatus('Sound enabled. Press or hold a pad.');$('start').textContent='Sound enabled';$('start').disabled=true;$('caption').textContent='Four voices / one evolving composition'}
-  function sine(freq,time,duration,volume,pan=0,type='sine',endFreq=null){
-    const o=ctx.createOscillator(),g=ctx.createGain(),p=ctx.createStereoPanner();
-    o.type=type;o.frequency.setValueAtTime(freq,time);if(endFreq)o.frequency.exponentialRampToValueAtTime(endFreq,time+Math.max(.03,duration*.4));
-    g.gain.setValueAtTime(.0001,time);g.gain.exponentialRampToValueAtTime(Math.max(.0002,volume),time+.014);
-    g.gain.exponentialRampToValueAtTime(.0001,time+duration);
-    p.pan.value=pan;o.connect(g).connect(p).connect(master);o.start(time);o.stop(time+duration+.02)
-  }
-  function puff(time,duration,vol,cutoff=3500,pan=0){
-    const s=ctx.createBufferSource(),f=ctx.createBiquadFilter(),g=ctx.createGain(),p=ctx.createStereoPanner();s.buffer=noiseBuf;
-    f.type='bandpass';f.frequency.setValueAtTime(cutoff,time);f.Q.value=.65;
-    g.gain.setValueAtTime(.0001,time);g.gain.exponentialRampToValueAtTime(vol,time+.006);g.gain.exponentialRampToValueAtTime(.0001,time+duration);p.pan.value=pan;
-    s.connect(f).connect(g).connect(p).connect(master);s.start(time,Math.random());s.stop(time+duration+.02)
-  }
-  function kick(t,v=.72){sine(130,t,.33,v*.65,0,'sine',48);puff(t,.11,.15,1400)}
-  function hitPulse(t=ctx.currentTime+.003){kick(t,.48+.44*knobs.pulse);energy.pulse=1;log('trigger','pulse',knobs.pulse)}
-  function breathOn(){if(!ctx||breathNodes)return;const t=ctx.currentTime;
-    const noise=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),gain=ctx.createGain(),osc=ctx.createOscillator(),og=ctx.createGain();
-    noise.buffer=noiseBuf;noise.loop=true;filter.type='lowpass';filter.frequency.value=600+knobs.breath*2600;
-    gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(.12,t+.26);
-    osc.type='sine';osc.frequency.value=110;og.gain.value=.025;
-    noise.connect(filter).connect(gain).connect(master);osc.connect(og).connect(gain);noise.start();osc.start();breathNodes={noise,filter,gain,osc,og};energy.breath=1;log('on','breath',knobs.breath);
-  }
-  function breathOff(){if(!breathNodes||!ctx)return;let n=breathNodes;const t=ctx.currentTime;n.gain.gain.cancelScheduledValues(t);n.gain.gain.setTargetAtTime(.0001,t,.11);try{n.noise.stop(t+.6);n.osc.stop(t+.6)}catch{}breathNodes=null;log('off','breath',0)}
-  const chords=[[146.83,174.61,220],[196,233.08,293.66],[174.61,220,261.63],[130.81,164.81,196],[110,146.83,164.81]];
-  function hitResonance(t=ctx.currentTime+.003){const ix=Math.min(4,Math.floor(knobs.resonance*5)),ch=chords[ix];
-    ch.forEach((f,j)=>sine(f*2,t+j*.018,2.15,.06,j===0?-.25:j===2?.26:0,j===1?'triangle':'sine'));
-    energy.resonance=1;log('trigger','resonance',ix)
-  }
-  function hitMovement(t=ctx.currentTime+.003){const side=(knobs.movement*2-1);for(let j=0;j<4;j++){const p=((j/3)*2-1)*(Math.abs(side)*.92);sine(440+j*110,t+j*.115,.54,.042,p,'triangle');puff(t+j*.11,.15,.045,950+j*350,p)}energy.movement=1;log('trigger','movement',side)}
-  function schedule(){if(!ctx)return;const eighthDur=60/93/2;while(tickAt<ctx.currentTime+.10){if(active.pulse){const every=knobs.pulse<.3?4:knobs.pulse<.62?2:1;if(eighth%every===0)kick(tickAt,.20+.2*knobs.pulse);if(knobs.pulse>.65&&eighth%2===1)puff(tickAt,.042,.028,5000)}
-    if(active.resonance&&eighth%8===0)hitResonance(tickAt);
-    if(active.movement&&eighth%6===0)hitMovement(tickAt);
-    if(eighth%8===0&&active.pulse)energy.pulse=.75;
-    eighth++;tickAt+=eighthDur;
-  }}
-  function press(n){if(active[n])return;active[n]=true;padNodes[n].classList.add('pressed');if(!ctx){enable().then(()=>pressSound(n));}else{ctx.resume().then(()=>pressSound(n))}log('padDown',n,1)}
-  function pressSound(n){if(n==='pulse')hitPulse();else if(n==='breath')breathOn();else if(n==='resonance')hitResonance();else hitMovement()}
-  function release(n){if(!active[n])return;active[n]=false;padNodes[n].classList.remove('pressed');if(n==='breath')breathOff();log('padUp',n,0)}
-  names.forEach(n=>{
-    const el=padNodes[n];el.addEventListener('pointerdown',e=>{e.preventDefault();try{el.setPointerCapture(e.pointerId)}catch{}press(n)});
-    el.addEventListener('pointerup',e=>{e.preventDefault();release(n)});el.addEventListener('pointercancel',()=>release(n));el.addEventListener('lostpointercapture',()=>release(n));
-    const inp=$('knob-'+n);inp.addEventListener('input',()=>{knobs[n]=+inp.value/100;$('value-'+n).textContent=inp.value+'%';if(n==='breath'&&breathNodes)breathNodes.filter.frequency.setTargetAtTime(600+knobs.breath*2600,ctx.currentTime,.06);log('knob',n,knobs[n])})
+'use strict';
+const $ = id => document.getElementById(id);
+const VERSION = 'SOUND PLAYGROUND browser sketch 0.2';
+const NAMES = ['pulse','breath','resonance','movement'];
+const META = {
+  pulse:     {n:'01', role:'Rhythm',     knob:'Density',   def:45, key:'1', pad:'Tap a beat.<br>Hold for a groove.', hint:'Kick and pulse on the chord root. Lights the windows in time.'},
+  breath:    {n:'02', role:'Atmosphere', knob:'Tone',      def:50, key:'2', pad:'Press to swell.<br>Hold to sustain.', hint:'A breathing chord pad. Washes the roof and sky with light.'},
+  resonance: {n:'03', role:'Harmony',    knob:'Colour',    def:40, key:'3', pad:'Strike a chord.<br>Hold to repeat.',  hint:'Bell-like chords. The rotary adds colour tones. Lights the pilasters.'},
+  movement:  {n:'04', role:'Space',      knob:'Direction', def:75, key:'4', pad:'Send sound across.<br>Hold to travel.', hint:'Melody that travels left or right. A band of light follows it.'}
+};
+const RGB = {pulse:[79,159,178], breath:[138,116,176], resonance:[191,147,73], movement:[165,114,125]};
+
+// ---------- music constants: D minor, i - VI - iv - V(sus4) ----------
+const BPM = 84, STEP = 60 / BPM / 4, STEPS_PER_CHORD = 32;
+const PROG = [
+  {name:'D minor',   root:38, tri:[62,65,69], ext:[64,72]},
+  {name:'B♭ major 7', root:34, tri:[62,65,70], ext:[69,72]},
+  {name:'G minor 9', root:43, tri:[62,67,70], ext:[65,69]},
+  {name:'A sus4',    root:45, tri:[62,64,69], ext:[67,74]}
+];
+const PULSE_PATTERNS = [ // 16 steps; 2 = accent, 1 = normal, .5 = ghost
+  [2,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,0,0],
+  [2,0,0,0, 1,0,0,0, 1,0,0,0, 1,0,0,0],
+  [2,0,0,0, 1,0,0,.5, 1,0,1,0, 1,0,0,0],
+  [2,0,0,1, 0,0,1,0, 1,0,0,1, 0,.5,1,0],
+  [2,0,.5,1, 0,.5,1,0, 1,0,.5,1, 0,.5,1,.5]
+];
+const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+
+// ---------- state ----------
+const knobs = {}; NAMES.forEach(n => knobs[n] = META[n].def / 100);
+const held = {}; NAMES.forEach(n => held[n] = new Set());   // input sources currently holding each pad
+const active = {}; NAMES.forEach(n => active[n] = false);
+const energy = {}; NAMES.forEach(n => energy[n] = 0);
+let ctx = null, enabling = null, master, limiterIn, preAnalyser, postAnalyser, recordDest, buses = {}, noiseBuf;
+let schedTimer = null, nextStepTime = 0, step = 0, liveSources = 0, breathVoice = null;
+let lastPulseAt = -1, lastResAt = -1, lastMoveAt = -1, moveSeq = 0;
+const visEvents = [];          // audio-clock-stamped events consumed by the renderer
+const peaks = {pre:0, post:0, clipped:0};
+const fx = {pulseWin: new Float32Array(64), resPil: new Float32Array(12), moveTrail: []};
+
+// ---------- UI construction ----------
+const stationsEl = $('stations');
+NAMES.forEach(n => {
+  const m = META[n];
+  const art = document.createElement('article');
+  art.className = 'station ' + n;
+  art.innerHTML =
+    `<header><h2>${n.toUpperCase()}</h2><span>${m.n} / ${m.role}</span></header>
+     <div class="controls">
+       <button class="pad" data-station="${n}" aria-label="${n} pad, press and hold (key ${m.key})"></button>
+       <div class="dialbox">
+         <div class="dial" id="dial-${n}" role="slider" tabindex="0" aria-label="${n} ${m.knob.toLowerCase()}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${m.def}">
+           <svg viewBox="-50 -50 100 100" aria-hidden="true">
+             <circle r="44" fill="#f1f2f0" stroke="#cdd2cf" stroke-width="2"/>
+             <path class="track" fill="none" stroke="#e1e4e2" stroke-width="5" stroke-linecap="round"/>
+             <path class="arc" fill="none" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/>
+             <circle r="30" fill="#3a4247"/><circle r="27" fill="#465056"/>
+             <line class="ptr" x1="0" y1="-8" x2="0" y2="-24" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+           </svg>
+         </div>
+         <label for="dial-${n}">${m.knob}</label><output id="val-${n}">${m.def}%</output>
+       </div>
+     </div>
+     <div class="pad-label hint">${m.pad}</div>
+     <p class="hint">${m.hint}</p>
+     <footer>Hold key ${m.key} · drag, scroll or use arrow keys on the dial</footer>`;
+  stationsEl.appendChild(art);
+});
+const padEl = {}; NAMES.forEach(n => padEl[n] = document.querySelector(`.pad[data-station="${n}"]`));
+
+function arcPath(a0, a1, r){ // angles in degrees, 0 = up, clockwise
+  const p = a => [r*Math.sin(a*Math.PI/180), -r*Math.cos(a*Math.PI/180)];
+  const [x0,y0] = p(a0), [x1,y1] = p(a1);
+  return `M${x0.toFixed(2)} ${y0.toFixed(2)} A${r} ${r} 0 ${a1-a0>180?1:0} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+}
+function drawDial(n){
+  const d = $('dial-'+n), v = knobs[n], ang = -135 + 270*v;
+  d.querySelector('.track').setAttribute('d', arcPath(-135, 135, 38));
+  d.querySelector('.arc').setAttribute('d', v > .004 ? arcPath(-135, ang, 38) : '');
+  d.querySelector('.ptr').setAttribute('transform', `rotate(${ang.toFixed(1)})`);
+  d.setAttribute('aria-valuenow', Math.round(v*100));
+  d.setAttribute('aria-valuetext', Math.round(v*100) + ' percent');
+  $('val-'+n).textContent = Math.round(v*100) + '%';
+}
+function setKnob(n, v, source){
+  v = Math.min(1, Math.max(0, v));
+  if (Math.abs(v - knobs[n]) < 1e-6) return;
+  knobs[n] = v; drawDial(n);
+  if (n === 'breath' && breathVoice) breathVoice.setTone(v);
+  logEvent('knob', n, +v.toFixed(3), source);
+}
+NAMES.forEach(n => {
+  drawDial(n);
+  const d = $('dial-'+n);
+  let pid = null, lastAng = 0;
+  const angOf = e => { const r = d.getBoundingClientRect(); return Math.atan2(e.clientX - (r.left + r.width/2), -(e.clientY - (r.top + r.height/2))) * 180/Math.PI; };
+  d.addEventListener('pointerdown', e => { if (pid !== null) return; e.preventDefault(); pid = e.pointerId; lastAng = angOf(e); try{ d.setPointerCapture(pid); }catch{} d.classList.add('drag'); d.focus({preventScroll:true}); });
+  d.addEventListener('pointermove', e => {
+    if (e.pointerId !== pid) return;
+    const a = angOf(e); let da = a - lastAng; if (da > 180) da -= 360; if (da < -180) da += 360; lastAng = a;
+    setKnob(n, knobs[n] + da/270, 'drag');
   });
-  const keymap={Digit1:'pulse',Digit2:'breath',Digit3:'resonance',Digit4:'movement'};
-  document.addEventListener('keydown',e=>{if(e.repeat||e.target.matches('input'))return;const n=keymap[e.code];if(n){e.preventDefault();press(n)}});
-  document.addEventListener('keyup',e=>{const n=keymap[e.code];if(n){e.preventDefault();release(n)}});
-  window.addEventListener('blur',()=>names.forEach(release));
-  $('start').addEventListener('click',enable);
-  $('volume').addEventListener('input',e=>{if(master)master.gain.setTargetAtTime(Math.pow(+e.target.value/100,1.45)*.9,ctx.currentTime,.04)});
-  $('reset').addEventListener('click',()=>{names.forEach(release);energy.pulse=energy.breath=energy.resonance=energy.movement=0;setStatus('Composition reset. Begin playing at any time.');log('reset','all',0)});
-  function paint(now){requestAnimationFrame(paint);const t=now/1000;const tw=canvas.width,th=canvas.height;
-    c.fillStyle='#11191c';c.fillRect(0,0,tw,th);
-    c.fillStyle='#182225';for(let k=0;k<2;k++)c.fillRect(0,400+k*75,tw,2);
-    const gap=22,frontY=530,baseX=72,baseW=1136;
-    const pal=[84,167,185];
-    for(let i=0;i<65;i++){const x=baseX+i*17.6;c.strokeStyle='rgba(111,131,137,.065)';c.lineWidth=1;c.beginPath();c.moveTo(x,183);c.lineTo(x,frontY);c.stroke()}
-    c.fillStyle='#263337';c.fillRect(baseX,frontY-86,baseW,87);c.fillStyle='#1b2428';c.fillRect(baseX,frontY-190,baseW,104);
-    c.fillStyle='#344347';c.fillRect(baseX+10,frontY-205,baseW-20,15);
-    c.strokeStyle='#6d8589';c.lineWidth=2;c.strokeRect(baseX+1,frontY-205,baseW-2,206);
-    // center Palace entrance and roof
-    c.fillStyle='#2c3a3c';c.beginPath();c.moveTo(490,324);c.lineTo(640,238);c.lineTo(790,324);c.closePath();c.fill();
-    c.strokeStyle='#76878b';c.stroke();c.fillStyle='#263235';c.fillRect(504,324,272,207);
-    for(let j=0;j<7;j++){const x=520+j*39;c.fillStyle='#415055';c.fillRect(x,349,15,166);c.fillStyle='#212e32';c.fillRect(x+1,353,12,156)}
-    for(let i=0;i<24;i++){
-      const x=baseX+18+i*47.3;const windowY=374;
-      let pulse=energy.pulse*(.5+.5*Math.sin(t*7+i*1.2));let breath=energy.breath*(.52+.48*Math.sin(t*.7+i*.21));let resonance=energy.resonance*(.5+.5*Math.sin(t*2+i*.35));
-      let move=energy.movement*Math.exp(-Math.abs(i/24-(t*(.13+knobs.movement*.28))%1)*13);
-      let rr=45+Math.floor(pulse*40+breath*45+resonance*120+move*75),gg=55+Math.floor(pulse*115+breath*40+resonance*68+move*42),bb=60+Math.floor(pulse*126+breath*105+resonance*15+move*60);
-      c.fillStyle=`rgb(${Math.min(rr,220)},${Math.min(gg,230)},${Math.min(bb,228)})`;
-      c.fillRect(x,windowY,25,55);c.fillRect(x,463,25,42);
-      c.strokeStyle='#6f7d80';c.strokeRect(x,windowY,25,55);c.strokeRect(x,463,25,42);
-      c.fillStyle='#253237';c.fillRect(x+11,windowY,2,55);c.fillRect(x+11,463,2,42)
+  const end = e => { if (e.pointerId !== pid) return; pid = null; d.classList.remove('drag'); };
+  d.addEventListener('pointerup', end); d.addEventListener('pointercancel', end); d.addEventListener('lostpointercapture', end);
+  d.addEventListener('wheel', e => { e.preventDefault(); setKnob(n, knobs[n] + (e.deltaY < 0 ? .02 : -.02), 'wheel'); }, {passive:false});
+  d.addEventListener('keydown', e => {
+    const k = {ArrowUp:.02, ArrowRight:.02, ArrowDown:-.02, ArrowLeft:-.02, PageUp:.1, PageDown:-.1}[e.key];
+    if (k !== undefined){ e.preventDefault(); setKnob(n, knobs[n] + k, 'key'); }
+    else if (e.key === 'Home'){ e.preventDefault(); setKnob(n, 0, 'key'); }
+    else if (e.key === 'End'){ e.preventDefault(); setKnob(n, 1, 'key'); }
+  });
+});
+
+// ---------- audio engine ----------
+function buildEngine(){
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) return false;
+  ctx = new AC({latencyHint:'interactive'});
+  // master -> compressor (limiting) -> soft clipper (hard ceiling) -> out
+  master = ctx.createGain(); master.gain.value = volCurve(+$('volume').value);
+  preAnalyser = ctx.createAnalyser(); preAnalyser.fftSize = 2048;
+  limiterIn = ctx.createDynamicsCompressor();
+  limiterIn.threshold.value = -10; limiterIn.knee.value = 4; limiterIn.ratio.value = 16; limiterIn.attack.value = .002; limiterIn.release.value = .18;
+  const clip = ctx.createWaveShaper(); const N = 2048, curve = new Float32Array(N);
+  for (let i = 0; i < N; i++){ const x = i/(N-1)*2 - 1; curve[i] = .94 * Math.tanh(1.15*x) / Math.tanh(1.15); }
+  clip.curve = curve;
+  postAnalyser = ctx.createAnalyser(); postAnalyser.fftSize = 2048;
+  master.connect(preAnalyser); master.connect(limiterIn); limiterIn.connect(clip); clip.connect(postAnalyser);
+  clip.connect(ctx.destination);
+  recordDest = ctx.createMediaStreamDestination(); clip.connect(recordDest);
+  // shared room reverb (generated impulse response)
+  const rev = ctx.createConvolver(), len = Math.floor(ctx.sampleRate * 2.6), ir = ctx.createBuffer(2, len, ctx.sampleRate);
+  for (let ch = 0; ch < 2; ch++){ const d = ir.getChannelData(ch); for (let i = 0; i < len; i++){ const t = i/ctx.sampleRate; d[i] = (Math.random()*2-1) * Math.exp(-t*2.6) * (t < .012 ? t/.012 : 1); } }
+  rev.buffer = ir; const revOut = ctx.createGain(); revOut.gain.value = .5; rev.connect(revOut); revOut.connect(master);
+  const mix = {pulse:[.62,.08], breath:[.55,.35], resonance:[.6,.42], movement:[.6,.36]};
+  NAMES.forEach(n => { const g = ctx.createGain(); g.gain.value = mix[n][0]; const s = ctx.createGain(); s.gain.value = mix[n][1]; g.connect(master); g.connect(s); s.connect(rev); buses[n] = g; });
+  noiseBuf = ctx.createBuffer(1, ctx.sampleRate*2, ctx.sampleRate);
+  const nd = noiseBuf.getChannelData(0); for (let i = 0; i < nd.length; i++) nd[i] = Math.random()*2 - 1;
+  ctx.onstatechange = refreshAudioUI;
+  nextStepTime = ctx.currentTime + .06; step = 0;
+  schedTimer = setInterval(schedule, 25);
+  return true;
+}
+function volCurve(v){ return Math.pow(v/100, 1.5) * .95; }
+function enable(){
+  if (!ctx && !buildEngine()){ setStatus('This browser does not support the Web Audio API.'); return Promise.resolve(false); }
+  if (ctx.state === 'running'){ refreshAudioUI(); return Promise.resolve(true); }
+  if (!enabling){
+    enabling = ctx.resume().then(() => { enabling = null; refreshAudioUI(); return ctx.state === 'running'; })
+                          .catch(() => { enabling = null; refreshAudioUI(); return false; });
+  }
+  return enabling;
+}
+function refreshAudioUI(){
+  const on = ctx && ctx.state === 'running';
+  const b = $('start');
+  b.textContent = on ? 'Sound on' : 'Enable sound';
+  b.classList.toggle('on', !!on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  $('caption').textContent = on ? 'Four voices · one evolving composition in D minor' : 'Sound is off · press Enable sound or any pad';
+  if (on && /Press “Enable sound”|Sound is paused/.test($('status').textContent)) setStatus('Sound on. Press and hold the pads; turn the dials.');
+  if (ctx && ctx.state === 'suspended' && started) setStatus('Sound is paused by the browser. Press Enable sound to continue.');
+}
+let started = false;
+function setStatus(s){ $('status').textContent = s; }
+
+function track(src, nodes){ liveSources++; src.onended = () => { liveSources--; nodes.forEach(x => { try{ x.disconnect(); }catch{} }); }; }
+function panner(p){ if (ctx.createStereoPanner){ const s = ctx.createStereoPanner(); s.pan.value = Math.max(-1, Math.min(1, p)); return s; } return ctx.createGain(); }
+function tone(o){ // one-shot oscillator note with exponential decay
+  const {f, t, dur, vol, bus, pan = 0, type = 'sine', attack = .004, f0 = null, glide = .06} = o;
+  const osc = ctx.createOscillator(), g = ctx.createGain(), p = panner(pan);
+  osc.type = type;
+  if (f0){ osc.frequency.setValueAtTime(f0, t); osc.frequency.exponentialRampToValueAtTime(f, t + glide); } else osc.frequency.setValueAtTime(f, t);
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + attack); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  osc.connect(g); g.connect(p); p.connect(buses[bus]);
+  osc.start(t); osc.stop(t + dur + .03); track(osc, [osc, g, p]);
+}
+function noiseHit(o){
+  const {t, dur, vol, bus, pan = 0, type = 'bandpass', freq = 3000, q = .8, freqEnd = null} = o;
+  const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(), p = panner(pan);
+  s.buffer = noiseBuf; f.type = type; f.frequency.setValueAtTime(freq, t); if (freqEnd) f.frequency.exponentialRampToValueAtTime(freqEnd, t + dur); f.Q.value = q;
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + .004); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  s.connect(f); f.connect(g); g.connect(p); p.connect(buses[bus]);
+  s.start(t, Math.random()*1.5); s.stop(t + dur + .03); track(s, [s, f, g, p]);
+}
+const chordAt = st => PROG[Math.floor(st / STEPS_PER_CHORD) % PROG.length];
+const nowStep = () => ctx ? Math.max(0, step - Math.round((nextStepTime - ctx.currentTime) / STEP)) : 0;
+
+// PULSE: kick + pitched body on the chord root
+function pulseHit(t, accent, st){
+  const ch = chordAt(st), k = knobs.pulse, v = accent >= 2 ? 1 : accent >= 1 ? .78 : .38;
+  if (accent >= 1){
+    tone({f: mtof(ch.root + 12) * .5, f0: mtof(ch.root + 12) * 2.6, glide: .07, t, dur: .42, vol: .9*v, bus:'pulse'});
+    tone({f: mtof(ch.root + 24), t, dur: .22, vol: .16*v, bus:'pulse', type:'triangle'});
+  }
+  noiseHit({t, dur: accent >= 1 ? .05 : .035, vol: (.08 + .1*k)*v, bus:'pulse', type:'highpass', freq: 5200, q:.5, pan: accent >= 1 ? 0 : .25});
+  visEvents.push({t, v:'pulse', amt:v, st});
+}
+// BREATH: sustained, filtered, detuned chord pad that follows the harmony
+function makeBreath(){
+  const t = ctx.currentTime, out = ctx.createGain(), filt = ctx.createBiquadFilter(), lfo = ctx.createOscillator(), lfoG = ctx.createGain();
+  out.gain.setValueAtTime(0, t); out.gain.linearRampToValueAtTime(1, t + .7);
+  filt.type = 'lowpass'; filt.Q.value = .9; lfo.frequency.value = .16; lfoG.gain.value = 320; lfo.connect(lfoG); lfoG.connect(filt.detune);
+  const ch = chordAt(nowStep()), notes = n => [n.root + 12, n.tri[0] - 12, n.tri[1] - 12, n.tri[2] - 12];
+  const oscs = notes(ch).map((m, i) => { const o = ctx.createOscillator(), g = ctx.createGain(); o.type = i === 0 ? 'triangle' : 'sawtooth'; o.frequency.value = mtof(m); o.detune.value = [0, -6, 5, -3][i]; g.gain.value = i === 0 ? .16 : .055; o.connect(g); g.connect(filt); return o; });
+  const ns = ctx.createBufferSource(), nf = ctx.createBiquadFilter(), ng = ctx.createGain();
+  ns.buffer = noiseBuf; ns.loop = true; nf.type = 'bandpass'; nf.Q.value = 1.4; ng.gain.value = .05; ns.connect(nf); nf.connect(ng); ng.connect(out);
+  const p = panner(0); filt.connect(out); out.connect(p); p.connect(buses.breath);
+  const all = [...oscs, ns, lfo];
+  all.forEach(s => s.start(t)); liveSources += all.length;
+  all.forEach(s => s.onended = () => { liveSources--; });
+  const voice = {
+    out, ended: false,
+    setTone(v, at = ctx.currentTime){ const c = 220 * Math.pow(18, v); filt.frequency.setTargetAtTime(c, at, .08); nf.frequency.setTargetAtTime(c * 1.4, at, .08); },
+    setChord(c, at){ notes(c).forEach((m, i) => oscs[i].frequency.setTargetAtTime(mtof(m), at, .22)); },
+    release(){
+      if (voice.ended) return; voice.ended = true;
+      const r = ctx.currentTime; out.gain.cancelScheduledValues(r); out.gain.setValueAtTime(out.gain.value, r); out.gain.setTargetAtTime(0, r, .32);
+      all.forEach(s => { try{ s.stop(r + 2.2); }catch{} });
+      setTimeout(() => { [out, filt, lfoG, nf, ng, p].forEach(x => { try{ x.disconnect(); }catch{} }); }, 2600);
     }
-    const cx=640,cy=295;
-    if(energy.resonance>.005){c.strokeStyle=`rgba(196,153,79,${energy.resonance*.5})`;c.lineWidth=2;for(let i=1;i<=3;i++){c.beginPath();c.ellipse(cx,cy,75+i*(30+energy.resonance*13),18+i*(19+energy.resonance*9),0,0,Math.PI*2);c.stroke()}}
-    if(energy.breath>.005){c.fillStyle=`rgba(142,118,179,${energy.breath*.08})`;c.fillRect(baseX,250,baseW,240)}
-    if(energy.movement>.005){const x=baseX+(t*(.17+knobs.movement*.3)%1)*baseW;c.fillStyle=`rgba(168,118,128,${energy.movement*.16})`;c.fillRect(x,315,18,216)}
-    c.fillStyle='#a7b5b6';c.font='18px Arial';c.fillText('KARLSRUHE PALACE | STUDY OF FOUR AUDIO-REACTIVE PARAMETERS',72,74);
-    c.fillStyle='#758d91';c.font='15px Arial';c.fillText('Schematic facade, not festival mapping geometry',72,106);
-    const yy=644;names.forEach((n,i)=>{const rgb=colours[n];const x=72+i*290;c.fillStyle=`rgb(${rgb.join(',')})`;c.fillRect(x,yy,8,8);c.fillStyle='#d5dbd9';c.font='17px Arial';c.fillText(n.toUpperCase(),x+16,yy+11);c.fillStyle='#394b4f';c.fillRect(x,yy+23,244,4);c.fillStyle=`rgb(${rgb.join(',')})`;c.fillRect(x,yy+23,244*Math.min(1,energy[n]),4)});
-    names.forEach(n=>{if(!active[n])energy[n]=Math.max(0,energy[n]-.014);else energy[n]=Math.min(1,energy[n]+.025)});
-    if(ctx)sessionSeconds=ctx.currentTime-started;$('time').textContent=fmt(sessionSeconds);
+  };
+  filt.frequency.value = 220 * Math.pow(18, knobs.breath); nf.frequency.value = filt.frequency.value * 1.4; voice.setTone(knobs.breath, t);
+  visEvents.push({t, v:'breathOn'});
+  return voice;
+}
+// RESONANCE: strummed bell-like chord; Colour dial adds extensions and brightness
+function resonanceStrum(t, st){
+  const ch = chordAt(st), k = knobs.resonance, nExt = k < .34 ? 0 : k < .67 ? 1 : 2;
+  const notes = [ch.root + 24, ...ch.tri, ...ch.ext.slice(0, nExt)];
+  const gap = .03 + .03*(1 - k);
+  notes.forEach((m, i) => {
+    const tt = t + i*gap, pan = (i/(notes.length - 1) - .5) * .7, f = mtof(m);
+    tone({f, t: tt, dur: 2.9, vol: .085, bus:'resonance', pan, attack:.003});
+    tone({f: f*2, t: tt, dur: .9, vol: .03 + .05*k, bus:'resonance', pan, attack:.002});
+    tone({f: f*4.01, t: tt, dur: .32, vol: .012 + .02*k, bus:'resonance', pan, attack:.001});
+    visEvents.push({t: tt, v:'res', i, n: notes.length});
+  });
+}
+// MOVEMENT: arpeggio whose notes travel across the stereo field
+function movementNote(t, st){
+  const ch = chordAt(st), pool = [...ch.tri, ...ch.ext].map(m => m + 12).sort((a, b) => a - b);
+  const k = knobs.movement, dir = k >= .5 ? 1 : -1, SWEEP = 8, pos = (moveSeq % SWEEP) / (SWEEP - 1);
+  const centred = Math.abs(k - .5) < .06;
+  const pan = centred ? Math.sin(moveSeq * .7) * .6 : (dir > 0 ? -1 + 2*pos : 1 - 2*pos) * .92;
+  const m = pool[moveSeq % pool.length] + (moveSeq % (pool.length*2) >= pool.length ? 12 : 0);
+  tone({f: mtof(m), t, dur: .6, vol: .1, bus:'movement', pan, type:'triangle', attack:.006});
+  tone({f: mtof(m) * 2, t, dur: .25, vol: .02, bus:'movement', pan});
+  noiseHit({t, dur: .22, vol: .03, bus:'movement', pan, freq: 700 + 2600*pos, freqEnd: 900 + 2600*pos*1.3, q: 2});
+  visEvents.push({t, v:'move', pan});
+  moveSeq++;
+}
+function moveInterval(){ const s = Math.abs(knobs.movement - .5) * 2; return s > .66 ? 1 : s > .3 ? 2 : 3; }
+
+function schedule(){
+  if (!ctx || ctx.state !== 'running') { if (ctx) nextStepTime = Math.max(nextStepTime, ctx.currentTime + .05); return; }
+  if (nextStepTime < ctx.currentTime - .2){ // tab was throttled: skip ahead rather than burst
+    const skip = Math.ceil((ctx.currentTime - nextStepTime) / STEP); step += skip; nextStepTime += skip*STEP;
   }
-  function fmt(sec){sec=Math.max(0,Math.floor(sec));return `${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`}
-  requestAnimationFrame(paint);
-  function canRecord(){return Boolean(window.MediaRecorder&&canvas.captureStream&&recordDest)}
-  function startRecord(duration){if(!canRecord()){setStatus('A/V recording is not supported in this browser. Try Chrome or Firefox.');return}
-    if(activeRecording)return;
-    const types=['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];
-    recType=types.find(x=>MediaRecorder.isTypeSupported(x))||'';
-    if(!recType){setStatus('A/V recording is unavailable in this browser. Try Chrome.');return}
-    try{
-      const vid=canvas.captureStream(30);currentRecordStream=new MediaStream([...vid.getVideoTracks(),...recordDest.stream.getAudioTracks()]);
-      rec=new MediaRecorder(currentRecordStream,{mimeType:recType,videoBitsPerSecond:3000000,audioBitsPerSecond:128000});
-      recChunks=[];recEvents=[];recStart=performance.now();activeRecording=true;
-      recEvents.push({t:0,type:'initial',knobs:{...knobs},active:{...active},demo:true});
-      rec.ondataavailable=e=>{if(e.data&&e.data.size>0)recChunks.push(e.data)};
-      rec.onerror=e=>{setStatus('Recording error: '+(e.error?.message||'unknown'));stopRecord()};
-      rec.onstop=()=>{
-        const blob=new Blob(recChunks,{type:recType});const id=new Date().toISOString().replace(/[:.]/g,'').slice(0,15);
-        const videoURL=URL.createObjectURL(blob);const json=new Blob([JSON.stringify({project:'SOUND PLAYGROUND browser prototype v0.1',time:new Date().toISOString(),durationSeconds:(performance.now()-recStart)/1000,controls:recEvents,note:'Browser audio and schematic visuals, not Notch or Max project output.'},null,2)],{type:'application/json'});
-        const eventsURL=URL.createObjectURL(json);
-        $('saved').innerHTML='Recording ready: <a href="'+videoURL+'" download="SoundPlayground_demo_'+id+'.webm">download audiovisual demo (.webm)</a> · <a href="'+eventsURL+'" download="SoundPlayground_events_'+id+'.json">download gesture log (.json)</a>';
-        setStatus('Recording completed locally. Nothing was uploaded.');
-        if(currentRecordStream){currentRecordStream.getVideoTracks().forEach(x=>x.stop());currentRecordStream=null}
-      };
-      rec.start(500);$('record30').disabled=true;$('record180').disabled=true;$('stoprecord').disabled=false;
-      $('saved').textContent='';$('recordstatus').textContent='Recording '+duration+' seconds';setStatus('Recording audio and the Palace preview. Play the pads now.');
-      recStopTimer=setTimeout(stopRecord,duration*1000);
-    }catch(e){activeRecording=false;setStatus('Could not start recording: '+e.message)}
+  while (nextStepTime < ctx.currentTime + .12){
+    const t = nextStepTime, st = step, s16 = st % 16;
+    if (st % STEPS_PER_CHORD === 0){
+      if (breathVoice) breathVoice.setChord(chordAt(st), t);
+      visEvents.push({t, v:'chord', name: chordAt(st).name});
+    }
+    if (active.pulse && t - lastPulseAt > .1){
+      const pat = PULSE_PATTERNS[Math.min(4, Math.floor(knobs.pulse * 5))], a = pat[s16];
+      if (a) pulseHit(t, a, st);
+    }
+    if (active.resonance && (s16 === 0 || s16 === 10) && t - lastResAt > .35){ resonanceStrum(t, st); lastResAt = t; }
+    if (active.movement && st % moveInterval() === 0 && t - lastMoveAt > .08){ movementNote(t, st); lastMoveAt = t; }
+    step++; nextStepTime += STEP;
   }
-  function stopRecord(){if(!activeRecording)return;activeRecording=false;clearTimeout(recStopTimer);try{if(rec&&rec.state!=='inactive')rec.stop()}catch{}$('record30').disabled=false;$('record180').disabled=false;$('stoprecord').disabled=true;$('recordstatus').textContent='Recording complete'}
-  $('record30').addEventListener('click',async()=>{await enable();startRecord(30)});
-  $('record180').addEventListener('click',async()=>{await enable();startRecord(180)});
-  $('stoprecord').addEventListener('click',stopRecord);
+}
+
+// ---------- pad gestures ----------
+function soundOnPress(n){
+  if (!ctx || ctx.state !== 'running' || !active[n]) return;
+  const t = ctx.currentTime + .005, st = nowStep();
+  if (n === 'pulse'){ pulseHit(t, 2, st); lastPulseAt = t; }
+  else if (n === 'breath'){ if (!breathVoice) breathVoice = makeBreath(); }
+  else if (n === 'resonance'){ resonanceStrum(t, st); lastResAt = t; }
+  else { moveSeq = 0; movementNote(t, st); lastMoveAt = t; }
+}
+function press(n, src){
+  const set = held[n], was = set.size > 0; set.add(src);
+  if (was) return;
+  active[n] = true; padEl[n].classList.add('pressed'); started = true;
+  logEvent('padDown', n, 1, srcKind(src));
+  if (ctx && ctx.state === 'running') soundOnPress(n);
+  else enable().then(ok => { if (ok) soundOnPress(n); });
+  updatePlayers();
+}
+function release(n, src){
+  const set = held[n]; if (!set.delete(src) || set.size > 0) return;
+  active[n] = false; padEl[n].classList.remove('pressed');
+  if (n === 'breath' && breathVoice){ breathVoice.release(); breathVoice = null; visEvents.push({t: ctx.currentTime, v:'breathOff'}); }
+  logEvent('padUp', n, 0, srcKind(src));
+  updatePlayers();
+}
+function releaseAll(){ NAMES.forEach(n => [...held[n]].forEach(s => release(n, s))); }
+const srcKind = s => String(s).split(':')[0];
+function updatePlayers(){ const c = NAMES.filter(n => active[n]).length; $('players').textContent = `${c} of 4 playing`; }
+
+NAMES.forEach(n => {
+  const el = padEl[n];
+  el.addEventListener('pointerdown', e => { e.preventDefault(); try{ el.setPointerCapture(e.pointerId); }catch{} press(n, 'pointer:' + e.pointerId); });
+  const up = e => release(n, 'pointer:' + e.pointerId);
+  el.addEventListener('pointerup', e => { up(e); if (ctx && ctx.state !== 'running') enable(); }); // touchend counts as user activation on mobile
+  el.addEventListener('pointercancel', up); el.addEventListener('lostpointercapture', up);
+  el.addEventListener('contextmenu', e => e.preventDefault());
+  el.addEventListener('keydown', e => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat){ e.preventDefault(); press(n, 'focuskey:' + e.key); } else if (e.key === ' ' || e.key === 'Enter') e.preventDefault(); });
+  el.addEventListener('keyup', e => { if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); release(n, 'focuskey:' + e.key); } });
+  el.addEventListener('blur', () => { release(n, 'focuskey: '); release(n, 'focuskey:Enter'); });
+});
+const KEYMAP = {Digit1:'pulse', Digit2:'breath', Digit3:'resonance', Digit4:'movement', Numpad1:'pulse', Numpad2:'breath', Numpad3:'resonance', Numpad4:'movement'};
+document.addEventListener('keydown', e => { const n = KEYMAP[e.code]; if (!n || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return; e.preventDefault(); press(n, 'key:' + e.code); });
+document.addEventListener('keyup', e => { const n = KEYMAP[e.code]; if (n){ e.preventDefault(); release(n, 'key:' + e.code); } });
+window.addEventListener('blur', releaseAll);
+document.addEventListener('visibilitychange', () => { if (document.hidden) releaseAll(); });
+
+$('start').addEventListener('click', () => { started = true; enable(); });
+$('volume').addEventListener('input', e => { if (master) master.gain.setTargetAtTime(volCurve(+e.target.value), ctx.currentTime, .04); logEvent('volume', 'all', +e.target.value / 100, 'ui'); });
+$('reset').addEventListener('click', () => {
+  releaseAll(); NAMES.forEach(n => { knobs[n] = META[n].def / 100; drawDial(n); energy[n] = 0; });
+  if (ctx){ step = 0; nextStepTime = ctx.currentTime + .06; }
+  moveSeq = 0; logEvent('reset', 'all', 0, 'ui'); setStatus('Reset: dials back to default, harmony back to D minor.');
+});
+
+// ---------- schematic Palace renderer ----------
+const cv = $('palace'), g2 = cv.getContext('2d'), W = cv.width, H = cv.height;
+const GROUND = 572, WING_L = [96, 512], WING_R = [768, 1184], CORE = [512, 768];
+const bays = []; // window bays, ordered left->right: {x,y,w,h,row}
+(function layout(){
+  const addWing = ([a, b]) => { const n = 12, bw = (b - a) / n; for (let i = 0; i < n; i++){ const x = a + i*bw + bw*.3; bays.push({x, y: 486, w: bw*.4, h: 54, row: 0}); bays.push({x, y: 418, w: bw*.4, h: 44, row: 1}); } };
+  addWing(WING_L);
+  for (let i = 0; i < 5; i++){ const bw = (CORE[1] - CORE[0]) / 5, x = CORE[0] + i*bw + bw*.3; bays.push({x, y: 486, w: bw*.4, h: 56, row: 0}); bays.push({x, y: 412, w: bw*.4, h: 50, row: 1}); bays.push({x, y: 352, w: bw*.4, h: 36, row: 2}); }
+  addWing(WING_R);
+  bays.sort((p, q) => p.x - q.x);
+})();
+const pilasters = Array.from({length: 6}, (_, i) => CORE[0] + 4 + i * (CORE[1] - CORE[0] - 16) / 5);
+let chordName = PROG[0].name, chordFlash = 0, breathLevel = 0, lastFrame = 0, sessionStart = null;
+
+function drawPalace(){
+  // sky
+  const sky = g2.createLinearGradient(0, 0, 0, GROUND); sky.addColorStop(0, '#0f1518'); sky.addColorStop(1, '#172024');
+  g2.fillStyle = sky; g2.fillRect(0, 0, W, H);
+  // breath: soft wash of sky and roof
+  if (breathLevel > .003){
+    const c = RGB.breath, hgt = 140 + 260 * knobs.breath;
+    const gr = g2.createLinearGradient(0, GROUND - 160 - hgt, 0, GROUND - 120);
+    gr.addColorStop(0, `rgba(${c},0)`); gr.addColorStop(1, `rgba(${c},${.28*breathLevel})`);
+    g2.fillStyle = gr; g2.fillRect(0, GROUND - 160 - hgt, W, hgt + 40);
+  }
+  // ground
+  g2.fillStyle = '#1b2326'; g2.fillRect(0, GROUND, W, H - GROUND);
+  g2.fillStyle = '#26302f'; g2.fillRect(0, GROUND, W, 2);
+  // tower (behind the central block)
+  const tx = 640;
+  g2.fillStyle = '#273235'; g2.fillRect(tx - 34, 196, 68, 140); g2.fillRect(tx - 26, 150, 52, 50);
+  g2.beginPath(); g2.moveTo(tx - 30, 152); g2.quadraticCurveTo(tx, 104, tx + 30, 152); g2.fill();
+  g2.fillRect(tx - 3, 88, 6, 22);
+  // wings: walls + mansard roofs
+  const roof = (a, b, top, eave, inset) => { g2.beginPath(); g2.moveTo(a - 6, eave); g2.lineTo(a + inset, top); g2.lineTo(b - inset, top); g2.lineTo(b + 6, eave); g2.closePath(); g2.fill(); };
+  g2.fillStyle = '#2c393c';
+  roof(WING_L[0], WING_L[1], 352, 398, 26); roof(WING_R[0], WING_R[1], 352, 398, 26);
+  roof(CORE[0], CORE[1], 300, 336, 18);
+  if (breathLevel > .003){
+    g2.fillStyle = `rgba(${RGB.breath},${.22*breathLevel})`;
+    roof(WING_L[0], WING_L[1], 352, 398, 26); roof(WING_R[0], WING_R[1], 352, 398, 26); roof(CORE[0], CORE[1], 300, 336, 18);
+  }
+  g2.fillStyle = '#334144'; g2.fillRect(WING_L[0], 398, WING_L[1] - WING_L[0], GROUND - 398); g2.fillRect(WING_R[0], 398, WING_R[1] - WING_R[0], GROUND - 398);
+  g2.fillStyle = '#38474a'; g2.fillRect(CORE[0], 336, CORE[1] - CORE[0], GROUND - 336);
+  // pediment
+  g2.fillStyle = '#3d4c50'; g2.beginPath(); g2.moveTo(568, 340); g2.lineTo(640, 300); g2.lineTo(712, 340); g2.closePath(); g2.fill();
+  // cornices
+  g2.fillStyle = '#4b5a5d'; g2.fillRect(WING_L[0] - 6, 396, WING_L[1] - WING_L[0] + 6, 4); g2.fillRect(WING_R[0], 396, WING_R[1] - WING_R[0] + 6, 4); g2.fillRect(CORE[0] - 4, 334, CORE[1] - CORE[0] + 8, 4);
+  g2.fillRect(WING_L[0], 470, WING_R[1] - WING_L[0], 2);
+  // pilasters (resonance)
+  pilasters.forEach((x, i) => {
+    g2.fillStyle = '#425256'; g2.fillRect(x, 340, 8, GROUND - 340);
+    const e = fx.resPil[i]; if (e > .01){ g2.fillStyle = `rgba(${RGB.resonance},${Math.min(.85, e)})`; g2.fillRect(x - 1, 340, 10, GROUND - 340); }
+  });
+  // windows: base + pulse + resonance + movement light
+  g2.globalCompositeOperation = 'source-over';
+  bays.forEach((b, i) => {
+    g2.fillStyle = '#1f292c'; g2.fillRect(b.x, b.y, b.w, b.h);
+    const cx = b.x + b.w/2, u = (cx - WING_L[0]) / (WING_R[1] - WING_L[0]);
+    let r = 0, g = 0, bl = 0, a = 0;
+    const add = (c, k) => { if (k <= .004) return; r += c[0]*k; g += c[1]*k; bl += c[2]*k; a += k; };
+    add(RGB.pulse, fx.pulseWin[i % 64] * (b.row === 0 ? 1 : .55));
+    add(RGB.resonance, energy.resonance * .55 * Math.max(0, 1 - Math.abs(u - .5) * 2.2) * (b.row > 0 ? 1 : .5));
+    let mv = 0; fx.moveTrail.forEach(m => { const mx = .5 + m.pan * .46; mv += m.e * Math.exp(-Math.pow((u - mx) / .05, 2)); }); add(RGB.movement, Math.min(1, mv));
+    add(RGB.breath, breathLevel * .18 * (b.row === 1 ? 1 : .6));
+    if (a > .004){ const k = Math.min(1, a); g2.fillStyle = `rgba(${Math.min(255, r/a*1.15)|0},${Math.min(255, g/a*1.15)|0},${Math.min(255, bl/a*1.15)|0},${(.25 + .75*k).toFixed(3)})`; g2.fillRect(b.x, b.y, b.w, b.h); }
+    g2.fillStyle = '#2a3437'; g2.fillRect(b.x + b.w/2 - 1, b.y, 2, b.h);
+  });
+  // entrance
+  g2.fillStyle = '#1a2225'; g2.fillRect(624, 520, 32, 52); g2.beginPath(); g2.arc(640, 520, 16, Math.PI, 0); g2.fill();
+  // movement trace on the ground line
+  fx.moveTrail.forEach(m => { const x = WING_L[0] + (.5 + m.pan * .46) * (WING_R[1] - WING_L[0]); g2.fillStyle = `rgba(${RGB.movement},${.5*m.e})`; g2.fillRect(x - 14, GROUND + 6, 28, 3); });
+  // labels: kept small and honest
+  g2.fillStyle = '#9fb0b0'; g2.font = '600 17px Arial, sans-serif'; g2.fillText('SOUND PLAYGROUND · KARLSRUHE PALACE (SCHEMATIC)', 48, 52);
+  g2.fillStyle = '#6f8486'; g2.font = '14px Arial, sans-serif'; g2.fillText('Simplified elevation drawn for this browser sketch. Not projection-mapping geometry.', 48, 76);
+  g2.textAlign = 'right'; g2.fillStyle = '#9fb0b0'; g2.font = '15px Arial, sans-serif'; g2.fillText(chordName + '  ·  ' + BPM + ' bpm', W - 48, 52);
+  if (chordFlash > .01){ g2.fillStyle = `rgba(220,226,222,${.35*chordFlash})`; g2.fillRect(W - 48 - 120*chordFlash, 62, 120*chordFlash, 2); }
+  g2.textAlign = 'left';
+  // four meters
+  NAMES.forEach((n, i) => {
+    const x = 48 + i * 300, y = 640;
+    g2.fillStyle = `rgb(${RGB[n]})`; g2.fillRect(x, y - 9, 9, 9);
+    g2.fillStyle = active[n] ? '#e2e8e5' : '#8b9a9a'; g2.font = '600 15px Arial, sans-serif'; g2.fillText(n.toUpperCase(), x + 17, y);
+    g2.fillStyle = '#7d8e8e'; g2.font = '13px Arial, sans-serif'; g2.fillText(META[n].knob + ' ' + Math.round(knobs[n]*100) + '%', x + 150, y);
+    g2.fillStyle = '#2d3a3d'; g2.fillRect(x, y + 14, 260, 4);
+    g2.fillStyle = `rgb(${RGB[n]})`; g2.fillRect(x, y + 14, 260 * Math.min(1, energy[n]), 4);
+  });
+}
+function frame(now){
+  requestAnimationFrame(frame);
+  const dt = Math.min(.1, (now - (lastFrame || now)) / 1000); lastFrame = now;
+  const at = ctx ? ctx.currentTime : 0;
+  // consume due audio events
+  for (let i = 0; i < visEvents.length; ){
+    const ev = visEvents[i];
+    if (ev.t > at){ i++; continue; }
+    visEvents.splice(i, 1);
+    if (ev.v === 'pulse'){ energy.pulse = Math.max(energy.pulse, ev.amt); const k = 3 + Math.floor(knobs.pulse * 9); for (let j = 0; j < k; j++){ const idx = (ev.st * 7 + j * 11) % bays.length; fx.pulseWin[idx % 64] = Math.max(fx.pulseWin[idx % 64], ev.amt); } }
+    else if (ev.v === 'res'){ energy.resonance = 1; const p = Math.round(ev.i / Math.max(1, ev.n - 1) * 5); fx.resPil[p] = 1; }
+    else if (ev.v === 'move'){ energy.movement = 1; fx.moveTrail.push({pan: ev.pan, e: 1}); if (fx.moveTrail.length > 12) fx.moveTrail.shift(); }
+    else if (ev.v === 'chord'){ chordName = ev.name; chordFlash = 1; }
+  }
+  if (visEvents.length > 400) visEvents.splice(0, visEvents.length - 400);
+  // decays
+  for (let i = 0; i < 64; i++) fx.pulseWin[i] *= Math.exp(-dt * 7);
+  for (let i = 0; i < 12; i++) fx.resPil[i] *= Math.exp(-dt * 1.6);
+  fx.moveTrail.forEach(m => m.e *= Math.exp(-dt * 3.2)); fx.moveTrail = fx.moveTrail.filter(m => m.e > .02);
+  energy.pulse *= Math.exp(-dt * 5); energy.resonance *= Math.exp(-dt * (active.resonance ? .9 : 1.6)); energy.movement *= Math.exp(-dt * 3);
+  breathLevel += ((active.breath ? 1 : 0) - breathLevel) * (1 - Math.exp(-dt * (active.breath ? 1.6 : 1.1)));
+  energy.breath = breathLevel; chordFlash *= Math.exp(-dt * 2);
+  drawPalace();
+  // level metering for tests and clipping detection
+  if (ctx && ctx.state === 'running'){
+    const buf = meterBuf || (meterBuf = new Float32Array(preAnalyser.fftSize));
+    preAnalyser.getFloatTimeDomainData(buf); let m = 0; for (let i = 0; i < buf.length; i++){ const a = Math.abs(buf[i]); if (a > m) m = a; } peaks.pre = Math.max(peaks.pre, m);
+    postAnalyser.getFloatTimeDomainData(buf); m = 0; for (let i = 0; i < buf.length; i++){ const a = Math.abs(buf[i]); if (a > m) m = a; } peaks.post = Math.max(peaks.post, m); if (m >= .999) peaks.clipped++;
+    if (sessionStart === null && started) sessionStart = at;
+  }
+  $('clock').textContent = fmt(sessionStart === null ? 0 : at - sessionStart);
+  if (rec.on) recTick();
+}
+let meterBuf = null;
+const fmt = s => { s = Math.max(0, Math.floor(s)); return String(Math.floor(s/60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); };
+requestAnimationFrame(frame);
+
+// ---------- recording: canvas video + mixed audio + gesture log ----------
+const rec = {on:false, mr:null, chunks:[], events:[], t0:0, p0:0, dur:0, mime:'', timer:null, stream:null, urls:[]};
+function logEvent(type, station, value, source){
+  if (!rec.on || !ctx) return;
+  rec.events.push({t: +(ctx.currentTime - rec.t0).toFixed(3), wallMs: Math.round(performance.now() - rec.p0), step: nowStep(), chord: chordAt(nowStep()).name, type, station, value, source});
+}
+function pickMime(){
+  if (!window.MediaRecorder) return '';
+  return ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm', 'video/mp4;codecs=avc1,mp4a.40.2', 'video/mp4'].find(t => { try{ return MediaRecorder.isTypeSupported(t); }catch{ return false; } }) || '';
+}
+async function startRecording(seconds){
+  if (rec.on) return;
+  const ok = await enable(); started = true;
+  if (!ok){ setStatus('Sound could not start, so recording was not started.'); return; }
+  if (!cv.captureStream || !window.MediaRecorder){ setStatus('This browser cannot record the canvas. Try current Chrome, Edge or Firefox.'); return; }
+  const mime = pickMime(); if (!mime){ setStatus('No supported video format for recording in this browser.'); return; }
+  try{
+    const vs = cv.captureStream(30);
+    rec.stream = new MediaStream([...vs.getVideoTracks(), ...recordDest.stream.getAudioTracks()]);
+    rec.mr = new MediaRecorder(rec.stream, {mimeType: mime, videoBitsPerSecond: 4000000, audioBitsPerSecond: 160000});
+  }catch(e){ setStatus('Could not start recording: ' + e.message); return; }
+  rec.urls.forEach(u => URL.revokeObjectURL(u)); rec.urls = [];
+  Object.assign(rec, {on:true, chunks:[], events:[], t0: ctx.currentTime, p0: performance.now(), dur: seconds, mime});
+  rec.events.push({t:0, wallMs:0, step: nowStep(), chord: chordAt(nowStep()).name, type:'initial', knobs:{...knobs}, active:{...active}, volume: +$('volume').value / 100});
+  rec.mr.ondataavailable = e => { if (e.data && e.data.size) rec.chunks.push(e.data); };
+  rec.mr.onstop = finishRecording;
+  rec.mr.onerror = e => { setStatus('Recording error: ' + (e.error && e.error.message || 'unknown')); stopRecording('error'); };
+  rec.mr.start(1000);
+  rec.timer = setTimeout(() => stopRecording('timer'), seconds * 1000);
+  $('rec30').disabled = $('rec180').disabled = true; $('recstop').disabled = false; $('saved').textContent = '';
+  setStatus('Recording. Play now: everything you hear and see is captured.');
+}
+function recTick(){
+  const el = ctx.currentTime - rec.t0;
+  $('recprog').style.width = Math.min(100, el / rec.dur * 100).toFixed(1) + '%';
+  $('recstatus').textContent = 'Recording ' + fmt(el) + ' / ' + fmt(rec.dur);
+}
+function stopRecording(reason){
+  if (!rec.on) return;
+  clearTimeout(rec.timer);
+  rec.events.push({t: +(ctx.currentTime - rec.t0).toFixed(3), wallMs: Math.round(performance.now() - rec.p0), step: nowStep(), type:'stop', reason, active:{...active}});
+  rec.on = false; rec.stopReason = reason;
+  try{ if (rec.mr.state !== 'inactive') rec.mr.stop(); }catch{ finishRecording(); }
+  $('recstop').disabled = true; $('recstatus').textContent = 'Finishing file…';
+}
+function finishRecording(){
+  const ext = rec.mime.includes('mp4') ? 'mp4' : 'webm';
+  const blob = new Blob(rec.chunks, {type: rec.mime.split(';')[0]});
+  const id = new Date().toISOString().replace(/[-:]/g, '').replace(/\..*/, '').replace('T', '_');
+  const last = rec.events[rec.events.length - 1];
+  const log = {
+    project: VERSION, createdAt: new Date().toISOString(), mimeType: rec.mime,
+    durationSeconds: last.t, requestedSeconds: rec.dur, stopReason: rec.stopReason,
+    clock: 't = seconds on the Web Audio clock since recording start (aligned with the recorded audio); wallMs = page clock; step = sixteenth-note index',
+    music: {tempoBpm: BPM, stepSeconds: +STEP.toFixed(6), stepsPerChord: STEPS_PER_CHORD, progression: PROG.map(p => p.name)},
+    stations: NAMES.map(n => ({id: n, dial: META[n].knob, default: META[n].def / 100})),
+    note: 'Browser sketch. Audio is Web Audio synthesis and video is a schematic Palace; not Max/MSP or Notch output. Event replay is not implemented.',
+    events: rec.events
+  };
+  const vurl = URL.createObjectURL(blob), jurl = URL.createObjectURL(new Blob([JSON.stringify(log, null, 2)], {type:'application/json'}));
+  rec.urls = [vurl, jurl];
+  const mb = (blob.size / 1048576).toFixed(1);
+  $('saved').innerHTML = `Recording ready (${fmt(log.durationSeconds)}, ${mb} MB): <a id="dl-video" href="${vurl}" download="SoundPlayground_${id}.${ext}">download video with sound (.${ext})</a> · <a id="dl-log" href="${jurl}" download="SoundPlayground_${id}_gestures.json">download gesture log (.json)</a>`;
+  if (rec.stream){ rec.stream.getVideoTracks().forEach(t => t.stop()); rec.stream = null; }
+  $('rec30').disabled = $('rec180').disabled = false; $('recprog').style.width = '0';
+  $('recstatus').textContent = 'Saved locally · ' + (rec.stopReason === 'timer' ? 'full length' : 'stopped early');
+  setStatus('Recording finished. Files are on this device only.');
+}
+$('rec30').addEventListener('click', () => startRecording(30));
+$('rec180').addEventListener('click', () => startRecording(180));
+$('recstop').addEventListener('click', () => stopRecording('user'));
+
+// read-only hook used by the automated test script (no effect on behaviour)
+window.SoundPlaygroundTest = {
+  state: () => ({audio: ctx ? ctx.state : 'none', active: {...active}, held: Object.fromEntries(NAMES.map(n => [n, held[n].size])), knobs: {...knobs}, liveSources, breathVoice: !!breathVoice, recording: rec.on, peaks: {...peaks}, step}),
+  resetPeaks: () => { peaks.pre = peaks.post = 0; peaks.clipped = 0; }
+};
 })();
 </script>
 </body>
