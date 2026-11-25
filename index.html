@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light"/>
+  <title>SOUND PLAYGROUND | Four-voice instrument prototype</title>
+  <style>
+    :root{--ink:#252b30;--paper:#f5f5f1;--line:#d5d8d5;--sub:#606e74;--p:#54a7b9;--b:#8e76b3;--r:#c4994f;--m:#a87680}
+    *{box-sizing:border-box}body{margin:0;background:#ecefeb;color:var(--ink);font-family:Inter,Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}button,input{font:inherit}
+    .wrap{max-width:1300px;margin:auto;padding:24px 25px 20px}.topline{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #b8bdbb;padding-bottom:12px;gap:24px}h1{font-size:clamp(22px,2.5vw,32px);font-weight:600;letter-spacing:.11em;margin:0}.tag{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--sub)}.lede{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:16px 0 19px}.lede p{font-size:14px;color:#536067;line-height:1.5;margin:0;max-width:650px}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.btn{border:1px solid #abb3b2;padding:10px 14px;border-radius:3px;color:var(--ink);background:#fff;cursor:pointer;font-size:13px;font-weight:600}.btn.primary{background:#27323a;color:#fff;border-color:#27323a}.btn:disabled{opacity:.45;cursor:not-allowed}.btn:hover:not(:disabled){filter:brightness(.96)}
+    .monitor{background:#151a1c;padding:13px 13px 9px;border-radius:5px;box-shadow:0 9px 23px #28303613}.monitor-bar{display:flex;justify-content:space-between;align-items:center;gap:14px;color:#e2e6e2;font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin:0 0 9px}.monitor-bar span:last-child{color:#aab5b4}.monitor canvas{width:100%;height:auto;display:block;background:#12191c;aspect-ratio:16/9}.monitor-foot{display:flex;align-items:center;gap:16px;margin-top:9px;color:#b9c5bf;font-size:11px;letter-spacing:.04em}.legend{display:flex;gap:12px;flex-wrap:wrap;margin-left:auto}.dot{display:inline-block;height:7px;width:7px;border-radius:50%;margin-right:5px;vertical-align:1px}
+    .console{margin-top:18px;background:#f8f8f5;border:1px solid #d0d4d0;box-shadow:0 6px 26px #25373a11;border-radius:6px;padding:18px 19px}.stations{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.station{border:1px solid #cfd3d0;min-width:0;border-radius:5px;background:#fff;padding:16px 15px 13px;display:flex;flex-direction:column;gap:13px;--accent:#537}.station.pulse{--accent:var(--p)}.station.breath{--accent:var(--b)}.station.resonance{--accent:var(--r)}.station.movement{--accent:var(--m)}.station header{display:flex;justify-content:space-between;align-items:baseline;gap:5px}.station h2{margin:0;font-size:13px;letter-spacing:.16em;font-weight:700}.station .index{font-size:11px;color:#9aa4a6}.instrument{display:flex;align-items:center;gap:10px}.pad{width:93px;height:93px;border-radius:50%;border:3px solid #e1e4e3;box-shadow:inset 0 2px 5px #fff9,0 3px 0 #bbc5c3;flex:0 0 93px;cursor:pointer;background:radial-gradient(circle at 43% 31%,#fff,var(--accent));position:relative;touch-action:none;user-select:none;-webkit-user-select:none;outline-offset:5px;transition:transform .06s ease,box-shadow .06s ease}.pad:after{content:'';width:51px;height:51px;position:absolute;left:19px;top:19px;border-radius:100%;border:1px solid #ffffff75}.pad.pressed{transform:translateY(3px);box-shadow:inset 0 1px 8px #3343,0 0 0 4px color-mix(in srgb,var(--accent),transparent 64%)}.pad:focus-visible{outline:3px solid var(--accent)}.pad-label{color:#637075;font-size:11px;line-height:1.4;min-width:0}.knobbox{border-top:1px solid #edf0ed;padding-top:12px}.knobtitle{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#5c6b6e;gap:12px}.knobtitle output{font-variant-numeric:tabular-nums;color:#25343a}.knob{margin-top:10px;width:100%;accent-color:var(--accent);cursor:pointer}.hint{color:#738083;font-size:11px;line-height:1.45;min-height:33px;margin:0}.station footer{font-size:10px;color:#8a9796;letter-spacing:.08em}.bottom{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-top:16px;font-size:12px;color:#5f6b70}.status{min-height:20px}.control-row{display:flex;align-items:center;gap:7px}.control-row input{accent-color:#3d626e;width:85px}.session{border-top:1px solid #d3d7d4;margin-top:15px;padding-top:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.session .group-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#5c6b70;margin-right:8px}.session small{color:#707e80}.saved{font-size:13px;margin-top:12px;min-height:18px}.saved a{color:#285a79;text-decoration:underline}.note{font-size:11px;color:#6d7b7e;margin-top:18px;line-height:1.5}.note strong{color:#4b575b}
+    @media (max-width:940px){.stations{grid-template-columns:repeat(2,minmax(0,1fr))}.lede{align-items:flex-start;flex-direction:column}.bottom{flex-wrap:wrap}.wrap{padding:14px}.monitor-foot{flex-wrap:wrap}.legend{margin:0}}
+    @media (max-width:500px){.stations{grid-template-columns:1fr}.station{padding:14px}.instrument{gap:15px}.monitor-bar{font-size:9px}.monitor-foot{font-size:9px}.tag{display:none}.topline{padding:5px 0 12px}.console{padding:12px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topline"><h1>SOUND PLAYGROUND</h1><div class="tag">Interactive music and architectural light | Browser study 0.1</div></div>
+  <div class="lede"><p>Four people, four musical gestures, one shared composition. Press and hold the pads, turn the controls, and hear the instruments change while a simplified Palace responds.</p><div class="actions"><button class="btn primary" id="start">Enable sound</button><button class="btn" id="reset">Reset composition</button></div></div>
+  <section class="monitor" aria-label="Shared Palace visual preview">
+    <div class="monitor-bar"><span>Karlsruhe Palace / simplified mapping preview</span><span id="time">00:00</span></div>
+    <canvas id="palace" width="1280" height="720" aria-label="Animated depiction of Palace columns and windows responding to musical instruments"></canvas>
+    <div class="monitor-foot"><span id="caption">Ready to play</span><div class="legend"><span><i class="dot" style="background:var(--p)"></i>Pulse</span><span><i class="dot" style="background:var(--b)"></i>Breath</span><span><i class="dot" style="background:var(--r)"></i>Resonance</span><span><i class="dot" style="background:var(--m)"></i>Movement</span></div></div>
+  </section>
+  <section class="console" aria-label="Four simulated sculpture stations">
+    <div class="stations">
+      <article class="station pulse"><header><h2>PULSE</h2><span class="index">01 / Rhythm</span></header><div class="instrument"><button class="pad" data-instrument="pulse" aria-label="Pulse pad, press or hold" title="Hold for rhythmic beats, tap for a single beat"></button><div class="pad-label">Tap a beat.<br>Hold for a pulse.</div></div><div class="knobbox"><div class="knobtitle"><label for="knob-pulse">Density</label><output id="value-pulse">44%</output></div><input class="knob" type="range" id="knob-pulse" data-knob="pulse" min="0" max="100" value="44"/></div><p class="hint">Rhythmic energy animates the Palace windows.</p><footer>Hold key 1 to play</footer></article>
+      <article class="station breath"><header><h2>BREATH</h2><span class="index">02 / Atmosphere</span></header><div class="instrument"><button class="pad" data-instrument="breath" aria-label="Breath pad, press or hold" title="Hold for a continuous drifting texture"></button><div class="pad-label">Press to swell.<br>Hold to sustain.</div></div><div class="knobbox"><div class="knobtitle"><label for="knob-breath">Tone</label><output id="value-breath">54%</output></div><input class="knob" type="range" id="knob-breath" data-knob="breath" min="0" max="100" value="54"/></div><p class="hint">Sustained sound creates layers of light across the facade.</p><footer>Hold key 2 to play</footer></article>
+      <article class="station resonance"><header><h2>RESONANCE</h2><span class="index">03 / Harmony</span></header><div class="instrument"><button class="pad" data-instrument="resonance" aria-label="Resonance pad, press or hold" title="Press to play chord tones"></button><div class="pad-label">Strike a chord.<br>Hold to repeat.</div></div><div class="knobbox"><div class="knobtitle"><label for="knob-resonance">Harmony</label><output id="value-resonance">32%</output></div><input class="knob" type="range" id="knob-resonance" data-knob="resonance" min="0" max="100" value="32"/></div><p class="hint">Harmonic waves illuminate the geometry of the Palace.</p><footer>Hold key 3 to play</footer></article>
+      <article class="station movement"><header><h2>MOVEMENT</h2><span class="index">04 / Space</span></header><div class="instrument"><button class="pad" data-instrument="movement" aria-label="Movement pad, press or hold" title="Press to sweep sound from left to right"></button><div class="pad-label">Send sound across.<br>Hold to travel.</div></div><div class="knobbox"><div class="knobtitle"><label for="knob-movement">Direction</label><output id="value-movement">70%</output></div><input class="knob" type="range" id="knob-movement" data-knob="movement" min="0" max="100" value="70"/></div><p class="hint">Sound pans across stereo while light travels between columns.</p><footer>Hold key 4 to play</footer></article>
+    </div>
+    <div class="bottom"><div class="status" id="status" role="status">Click “Enable sound” to begin. Nothing is uploaded.</div><label class="control-row" for="volume">Volume <input id="volume" type="range" value="65" min="0" max="100"/></label></div>
+    <div class="session"><span class="group-title">Capture a sample</span><button class="btn" id="record30" disabled>Record 30 seconds</button><button class="btn" id="record180" disabled>Record 3 minutes</button><button class="btn" id="stoprecord" disabled>Stop recording</button><small id="recordstatus">Audio + visual capture in supported browsers</small></div><div class="saved" id="saved"></div>
+  </section>
+  <div class="note"><strong>Prototype, not the final installation.</strong> Sound is synthesized locally in the browser, with no Max or Notch integration. The Palace geometry is illustrative and does not constitute the festival projection-mapping master. Recording saves a WebM audiovisual file and a JSON control-event log to your device. No data is transmitted.</div>
+</div>
+<script>
+(() => {
+  'use strict';
+  const $=id=>document.getElementById(id);
+  const canvas=$('palace'), c=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  const names=['pulse','breath','resonance','movement'];
+  const colours={pulse:[84,167,185],breath:[142,118,179],resonance:[196,153,79],movement:[168,118,128]};
+  const active=Object.fromEntries(names.map(n=>[n,false]));
+  const energy=Object.fromEntries(names.map(n=>[n,0]));
+  const knobs={pulse:.44,breath:.54,resonance:.32,movement:.70};
+  const padNodes=Object.fromEntries(names.map(n=>[n,document.querySelector(`[data-instrument="${n}"]`)]));
+  let ctx,master,compressor,recordDest,noiseBuf,breathNodes=null,started=0,tickAt=0,scheduleTimer=null,eighth=0;
+  let rec=null,recChunks=[],recStopTimer=null,recStart=0,recEvents=[],activeRecording=false,lastLog=[],recType='video/webm';
+  let currentRecordStream=null;let sessionSeconds=0;let visualOffset=0;
+  const setStatus=s=>{$('status').textContent=s};
+  function log(kind,part,value){if(activeRecording)recEvents.push({t:+((performance.now()-recStart)/1000).toFixed(3),type:kind,station:part,value});}
+  function audioSetup(){
+    if(ctx)return;
+    const Audio=window.AudioContext||window.webkitAudioContext;
+    if(!Audio){setStatus('This browser does not support Web Audio.');return}
+    ctx=new Audio({latencyHint:'interactive',sampleRate:48000});
+    master=ctx.createGain();master.gain.value=.65;
+    compressor=ctx.createDynamicsCompressor();compressor.threshold.value=-14;compressor.ratio.value=3;compressor.attack.value=.005;compressor.release.value=.25;
+    master.connect(compressor);compressor.connect(ctx.destination);
+    recordDest=ctx.createMediaStreamDestination();compressor.connect(recordDest);
+    noiseBuf=ctx.createBuffer(1,ctx.sampleRate*2,ctx.sampleRate);let d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+    started=ctx.currentTime;scheduleTimer=setInterval(schedule,25);tickAt=ctx.currentTime+.08;schedule();
+    $('record30').disabled=false;$('record180').disabled=false;
+  }
+  async function enable(){audioSetup();if(!ctx)return;await ctx.resume();setStatus('Sound enabled. Press or hold a pad.');$('start').textContent='Sound enabled';$('start').disabled=true;$('caption').textContent='Four voices / one evolving composition'}
+  function sine(freq,time,duration,volume,pan=0,type='sine',endFreq=null){
+    const o=ctx.createOscillator(),g=ctx.createGain(),p=ctx.createStereoPanner();
+    o.type=type;o.frequency.setValueAtTime(freq,time);if(endFreq)o.frequency.exponentialRampToValueAtTime(endFreq,time+Math.max(.03,duration*.4));
+    g.gain.setValueAtTime(.0001,time);g.gain.exponentialRampToValueAtTime(Math.max(.0002,volume),time+.014);
+    g.gain.exponentialRampToValueAtTime(.0001,time+duration);
+    p.pan.value=pan;o.connect(g).connect(p).connect(master);o.start(time);o.stop(time+duration+.02)
+  }
+  function puff(time,duration,vol,cutoff=3500,pan=0){
+    const s=ctx.createBufferSource(),f=ctx.createBiquadFilter(),g=ctx.createGain(),p=ctx.createStereoPanner();s.buffer=noiseBuf;
+    f.type='bandpass';f.frequency.setValueAtTime(cutoff,time);f.Q.value=.65;
+    g.gain.setValueAtTime(.0001,time);g.gain.exponentialRampToValueAtTime(vol,time+.006);g.gain.exponentialRampToValueAtTime(.0001,time+duration);p.pan.value=pan;
+    s.connect(f).connect(g).connect(p).connect(master);s.start(time,Math.random());s.stop(time+duration+.02)
+  }
+  function kick(t,v=.72){sine(130,t,.33,v*.65,0,'sine',48);puff(t,.11,.15,1400)}
+  function hitPulse(t=ctx.currentTime+.003){kick(t,.48+.44*knobs.pulse);energy.pulse=1;log('trigger','pulse',knobs.pulse)}
+  function breathOn(){if(!ctx||breathNodes)return;const t=ctx.currentTime;
+    const noise=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),gain=ctx.createGain(),osc=ctx.createOscillator(),og=ctx.createGain();
+    noise.buffer=noiseBuf;noise.loop=true;filter.type='lowpass';filter.frequency.value=600+knobs.breath*2600;
+    gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(.12,t+.26);
+    osc.type='sine';osc.frequency.value=110;og.gain.value=.025;
+    noise.connect(filter).connect(gain).connect(master);osc.connect(og).connect(gain);noise.start();osc.start();breathNodes={noise,filter,gain,osc,og};energy.breath=1;log('on','breath',knobs.breath);
+  }
+  function breathOff(){if(!breathNodes||!ctx)return;let n=breathNodes;const t=ctx.currentTime;n.gain.gain.cancelScheduledValues(t);n.gain.gain.setTargetAtTime(.0001,t,.11);try{n.noise.stop(t+.6);n.osc.stop(t+.6)}catch{}breathNodes=null;log('off','breath',0)}
+  const chords=[[146.83,174.61,220],[196,233.08,293.66],[174.61,220,261.63],[130.81,164.81,196],[110,146.83,164.81]];
+  function hitResonance(t=ctx.currentTime+.003){const ix=Math.min(4,Math.floor(knobs.resonance*5)),ch=chords[ix];
+    ch.forEach((f,j)=>sine(f*2,t+j*.018,2.15,.06,j===0?-.25:j===2?.26:0,j===1?'triangle':'sine'));
+    energy.resonance=1;log('trigger','resonance',ix)
+  }
+  function hitMovement(t=ctx.currentTime+.003){const side=(knobs.movement*2-1);for(let j=0;j<4;j++){const p=((j/3)*2-1)*(Math.abs(side)*.92);sine(440+j*110,t+j*.115,.54,.042,p,'triangle');puff(t+j*.11,.15,.045,950+j*350,p)}energy.movement=1;log('trigger','movement',side)}
+  function schedule(){if(!ctx)return;const eighthDur=60/93/2;while(tickAt<ctx.currentTime+.10){if(active.pulse){const every=knobs.pulse<.3?4:knobs.pulse<.62?2:1;if(eighth%every===0)kick(tickAt,.20+.2*knobs.pulse);if(knobs.pulse>.65&&eighth%2===1)puff(tickAt,.042,.028,5000)}
+    if(active.resonance&&eighth%8===0)hitResonance(tickAt);
+    if(active.movement&&eighth%6===0)hitMovement(tickAt);
+    if(eighth%8===0&&active.pulse)energy.pulse=.75;
+    eighth++;tickAt+=eighthDur;
+  }}
+  function press(n){if(active[n])return;active[n]=true;padNodes[n].classList.add('pressed');if(!ctx){enable().then(()=>pressSound(n));}else{ctx.resume().then(()=>pressSound(n))}log('padDown',n,1)}
+  function pressSound(n){if(n==='pulse')hitPulse();else if(n==='breath')breathOn();else if(n==='resonance')hitResonance();else hitMovement()}
+  function release(n){if(!active[n])return;active[n]=false;padNodes[n].classList.remove('pressed');if(n==='breath')breathOff();log('padUp',n,0)}
+  names.forEach(n=>{
+    const el=padNodes[n];el.addEventListener('pointerdown',e=>{e.preventDefault();try{el.setPointerCapture(e.pointerId)}catch{}press(n)});
+    el.addEventListener('pointerup',e=>{e.preventDefault();release(n)});el.addEventListener('pointercancel',()=>release(n));el.addEventListener('lostpointercapture',()=>release(n));
+    const inp=$('knob-'+n);inp.addEventListener('input',()=>{knobs[n]=+inp.value/100;$('value-'+n).textContent=inp.value+'%';if(n==='breath'&&breathNodes)breathNodes.filter.frequency.setTargetAtTime(600+knobs.breath*2600,ctx.currentTime,.06);log('knob',n,knobs[n])})
+  });
+  const keymap={Digit1:'pulse',Digit2:'breath',Digit3:'resonance',Digit4:'movement'};
+  document.addEventListener('keydown',e=>{if(e.repeat||e.target.matches('input'))return;const n=keymap[e.code];if(n){e.preventDefault();press(n)}});
+  document.addEventListener('keyup',e=>{const n=keymap[e.code];if(n){e.preventDefault();release(n)}});
+  window.addEventListener('blur',()=>names.forEach(release));
+  $('start').addEventListener('click',enable);
+  $('volume').addEventListener('input',e=>{if(master)master.gain.setTargetAtTime(Math.pow(+e.target.value/100,1.45)*.9,ctx.currentTime,.04)});
+  $('reset').addEventListener('click',()=>{names.forEach(release);energy.pulse=energy.breath=energy.resonance=energy.movement=0;setStatus('Composition reset. Begin playing at any time.');log('reset','all',0)});
+  function paint(now){requestAnimationFrame(paint);const t=now/1000;const tw=canvas.width,th=canvas.height;
+    c.fillStyle='#11191c';c.fillRect(0,0,tw,th);
+    c.fillStyle='#182225';for(let k=0;k<2;k++)c.fillRect(0,400+k*75,tw,2);
+    const gap=22,frontY=530,baseX=72,baseW=1136;
+    const pal=[84,167,185];
+    for(let i=0;i<65;i++){const x=baseX+i*17.6;c.strokeStyle='rgba(111,131,137,.065)';c.lineWidth=1;c.beginPath();c.moveTo(x,183);c.lineTo(x,frontY);c.stroke()}
+    c.fillStyle='#263337';c.fillRect(baseX,frontY-86,baseW,87);c.fillStyle='#1b2428';c.fillRect(baseX,frontY-190,baseW,104);
+    c.fillStyle='#344347';c.fillRect(baseX+10,frontY-205,baseW-20,15);
+    c.strokeStyle='#6d8589';c.lineWidth=2;c.strokeRect(baseX+1,frontY-205,baseW-2,206);
+    // center Palace entrance and roof
+    c.fillStyle='#2c3a3c';c.beginPath();c.moveTo(490,324);c.lineTo(640,238);c.lineTo(790,324);c.closePath();c.fill();
+    c.strokeStyle='#76878b';c.stroke();c.fillStyle='#263235';c.fillRect(504,324,272,207);
+    for(let j=0;j<7;j++){const x=520+j*39;c.fillStyle='#415055';c.fillRect(x,349,15,166);c.fillStyle='#212e32';c.fillRect(x+1,353,12,156)}
+    for(let i=0;i<24;i++){
+      const x=baseX+18+i*47.3;const windowY=374;
+      let pulse=energy.pulse*(.5+.5*Math.sin(t*7+i*1.2));let breath=energy.breath*(.52+.48*Math.sin(t*.7+i*.21));let resonance=energy.resonance*(.5+.5*Math.sin(t*2+i*.35));
+      let move=energy.movement*Math.exp(-Math.abs(i/24-(t*(.13+knobs.movement*.28))%1)*13);
+      let rr=45+Math.floor(pulse*40+breath*45+resonance*120+move*75),gg=55+Math.floor(pulse*115+breath*40+resonance*68+move*42),bb=60+Math.floor(pulse*126+breath*105+resonance*15+move*60);
+      c.fillStyle=`rgb(${Math.min(rr,220)},${Math.min(gg,230)},${Math.min(bb,228)})`;
+      c.fillRect(x,windowY,25,55);c.fillRect(x,463,25,42);
+      c.strokeStyle='#6f7d80';c.strokeRect(x,windowY,25,55);c.strokeRect(x,463,25,42);
+      c.fillStyle='#253237';c.fillRect(x+11,windowY,2,55);c.fillRect(x+11,463,2,42)
+    }
+    const cx=640,cy=295;
+    if(energy.resonance>.005){c.strokeStyle=`rgba(196,153,79,${energy.resonance*.5})`;c.lineWidth=2;for(let i=1;i<=3;i++){c.beginPath();c.ellipse(cx,cy,75+i*(30+energy.resonance*13),18+i*(19+energy.resonance*9),0,0,Math.PI*2);c.stroke()}}
+    if(energy.breath>.005){c.fillStyle=`rgba(142,118,179,${energy.breath*.08})`;c.fillRect(baseX,250,baseW,240)}
+    if(energy.movement>.005){const x=baseX+(t*(.17+knobs.movement*.3)%1)*baseW;c.fillStyle=`rgba(168,118,128,${energy.movement*.16})`;c.fillRect(x,315,18,216)}
+    c.fillStyle='#a7b5b6';c.font='18px Arial';c.fillText('KARLSRUHE PALACE | STUDY OF FOUR AUDIO-REACTIVE PARAMETERS',72,74);
+    c.fillStyle='#758d91';c.font='15px Arial';c.fillText('Schematic facade, not festival mapping geometry',72,106);
+    const yy=644;names.forEach((n,i)=>{const rgb=colours[n];const x=72+i*290;c.fillStyle=`rgb(${rgb.join(',')})`;c.fillRect(x,yy,8,8);c.fillStyle='#d5dbd9';c.font='17px Arial';c.fillText(n.toUpperCase(),x+16,yy+11);c.fillStyle='#394b4f';c.fillRect(x,yy+23,244,4);c.fillStyle=`rgb(${rgb.join(',')})`;c.fillRect(x,yy+23,244*Math.min(1,energy[n]),4)});
+    names.forEach(n=>{if(!active[n])energy[n]=Math.max(0,energy[n]-.014);else energy[n]=Math.min(1,energy[n]+.025)});
+    if(ctx)sessionSeconds=ctx.currentTime-started;$('time').textContent=fmt(sessionSeconds);
+  }
+  function fmt(sec){sec=Math.max(0,Math.floor(sec));return `${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`}
+  requestAnimationFrame(paint);
+  function canRecord(){return Boolean(window.MediaRecorder&&canvas.captureStream&&recordDest)}
+  function startRecord(duration){if(!canRecord()){setStatus('A/V recording is not supported in this browser. Try Chrome or Firefox.');return}
+    if(activeRecording)return;
+    const types=['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];
+    recType=types.find(x=>MediaRecorder.isTypeSupported(x))||'';
+    if(!recType){setStatus('A/V recording is unavailable in this browser. Try Chrome.');return}
+    try{
+      const vid=canvas.captureStream(30);currentRecordStream=new MediaStream([...vid.getVideoTracks(),...recordDest.stream.getAudioTracks()]);
+      rec=new MediaRecorder(currentRecordStream,{mimeType:recType,videoBitsPerSecond:3000000,audioBitsPerSecond:128000});
+      recChunks=[];recEvents=[];recStart=performance.now();activeRecording=true;
+      recEvents.push({t:0,type:'initial',knobs:{...knobs},active:{...active},demo:true});
+      rec.ondataavailable=e=>{if(e.data&&e.data.size>0)recChunks.push(e.data)};
+      rec.onerror=e=>{setStatus('Recording error: '+(e.error?.message||'unknown'));stopRecord()};
+      rec.onstop=()=>{
+        const blob=new Blob(recChunks,{type:recType});const id=new Date().toISOString().replace(/[:.]/g,'').slice(0,15);
+        const videoURL=URL.createObjectURL(blob);const json=new Blob([JSON.stringify({project:'SOUND PLAYGROUND browser prototype v0.1',time:new Date().toISOString(),durationSeconds:(performance.now()-recStart)/1000,controls:recEvents,note:'Browser audio and schematic visuals, not Notch or Max project output.'},null,2)],{type:'application/json'});
+        const eventsURL=URL.createObjectURL(json);
+        $('saved').innerHTML='Recording ready: <a href="'+videoURL+'" download="SoundPlayground_demo_'+id+'.webm">download audiovisual demo (.webm)</a> · <a href="'+eventsURL+'" download="SoundPlayground_events_'+id+'.json">download gesture log (.json)</a>';
+        setStatus('Recording completed locally. Nothing was uploaded.');
+        if(currentRecordStream){currentRecordStream.getVideoTracks().forEach(x=>x.stop());currentRecordStream=null}
+      };
+      rec.start(500);$('record30').disabled=true;$('record180').disabled=true;$('stoprecord').disabled=false;
+      $('saved').textContent='';$('recordstatus').textContent='Recording '+duration+' seconds';setStatus('Recording audio and the Palace preview. Play the pads now.');
+      recStopTimer=setTimeout(stopRecord,duration*1000);
+    }catch(e){activeRecording=false;setStatus('Could not start recording: '+e.message)}
+  }
+  function stopRecord(){if(!activeRecording)return;activeRecording=false;clearTimeout(recStopTimer);try{if(rec&&rec.state!=='inactive')rec.stop()}catch{}$('record30').disabled=false;$('record180').disabled=false;$('stoprecord').disabled=true;$('recordstatus').textContent='Recording complete'}
+  $('record30').addEventListener('click',async()=>{await enable();startRecord(30)});
+  $('record180').addEventListener('click',async()=>{await enable();startRecord(180)});
+  $('stoprecord').addEventListener('click',stopRecord);
+})();
+</script>
+</body>
+</html>
