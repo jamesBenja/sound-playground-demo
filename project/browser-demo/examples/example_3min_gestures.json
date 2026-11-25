@@ -1,0 +1,798 @@
+{
+  "project": "SOUND PLAYGROUND browser sketch 0.2",
+  "createdAt": "2026-11-25T06:10:35.812Z",
+  "mimeType": "video/webm;codecs=vp9,opus",
+  "durationSeconds": 179.879,
+  "requestedSeconds": 180,
+  "stopReason": "timer",
+  "clock": "t = seconds on the Web Audio clock since recording start (aligned with the recorded audio); wallMs = page clock; step = sixteenth-note index",
+  "music": {
+    "tempoBpm": 84,
+    "stepSeconds": 0.178571,
+    "stepsPerChord": 32,
+    "progression": [
+      "D minor",
+      "B♭ major 7",
+      "G minor 9",
+      "A sus4"
+    ]
+  },
+  "stations": [
+    {
+      "id": "pulse",
+      "dial": "Density",
+      "default": 0.45
+    },
+    {
+      "id": "breath",
+      "dial": "Tone",
+      "default": 0.5
+    },
+    {
+      "id": "resonance",
+      "dial": "Colour",
+      "default": 0.4
+    },
+    {
+      "id": "movement",
+      "dial": "Direction",
+      "default": 0.75
+    }
+  ],
+  "note": "Browser sketch. Audio is Web Audio synthesis and video is a schematic Palace; not Max/MSP or Notch output. Event replay is not implemented.",
+  "events": [
+    {
+      "t": 0,
+      "wallMs": 0,
+      "step": 0,
+      "chord": "D minor",
+      "type": "initial",
+      "knobs": {
+        "pulse": 0.45,
+        "breath": 0.5,
+        "resonance": 0.4,
+        "movement": 0.75
+      },
+      "active": {
+        "pulse": false,
+        "breath": false,
+        "resonance": false,
+        "movement": false
+      },
+      "volume": 0.7
+    },
+    {
+      "t": 0.009,
+      "wallMs": 4,
+      "step": 0,
+      "chord": "D minor",
+      "type": "padDown",
+      "station": "breath",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 0.009,
+      "wallMs": 8,
+      "step": 0,
+      "chord": "D minor",
+      "type": "padDown",
+      "station": "resonance",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 7.059,
+      "wallMs": 7056,
+      "step": 39,
+      "chord": "B♭ major 7",
+      "type": "padDown",
+      "station": "pulse",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 7.059,
+      "wallMs": 7059,
+      "step": 39,
+      "chord": "B♭ major 7",
+      "type": "padUp",
+      "station": "resonance",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 7.059,
+      "wallMs": 7059,
+      "step": 39,
+      "chord": "B♭ major 7",
+      "type": "padDown",
+      "station": "movement",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 14.109,
+      "wallMs": 14106,
+      "step": 79,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "breath",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 14.109,
+      "wallMs": 14107,
+      "step": 79,
+      "chord": "G minor 9",
+      "type": "padDown",
+      "station": "resonance",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 21.159,
+      "wallMs": 21158,
+      "step": 118,
+      "chord": "A sus4",
+      "type": "padUp",
+      "station": "pulse",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 21.168,
+      "wallMs": 21163,
+      "step": 118,
+      "chord": "A sus4",
+      "type": "padDown",
+      "station": "breath",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 21.168,
+      "wallMs": 21167,
+      "step": 118,
+      "chord": "A sus4",
+      "type": "padUp",
+      "station": "movement",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 28.218,
+      "wallMs": 28217,
+      "step": 158,
+      "chord": "D minor",
+      "type": "padDown",
+      "station": "pulse",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 28.23,
+      "wallMs": 28223,
+      "step": 158,
+      "chord": "D minor",
+      "type": "padUp",
+      "station": "resonance",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 28.23,
+      "wallMs": 28224,
+      "step": 158,
+      "chord": "D minor",
+      "type": "padDown",
+      "station": "movement",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 35.219,
+      "wallMs": 35265,
+      "step": 197,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "breath",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 35.219,
+      "wallMs": 35267,
+      "step": 197,
+      "chord": "G minor 9",
+      "type": "padDown",
+      "station": "resonance",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 42.278,
+      "wallMs": 42322,
+      "step": 237,
+      "chord": "A sus4",
+      "type": "padUp",
+      "station": "pulse",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 42.278,
+      "wallMs": 42324,
+      "step": 237,
+      "chord": "A sus4",
+      "type": "padDown",
+      "station": "breath",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 42.289,
+      "wallMs": 42333,
+      "step": 237,
+      "chord": "A sus4",
+      "type": "padUp",
+      "station": "movement",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 49.328,
+      "wallMs": 49375,
+      "step": 276,
+      "chord": "D minor",
+      "type": "padDown",
+      "station": "pulse",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 49.34,
+      "wallMs": 49384,
+      "step": 276,
+      "chord": "D minor",
+      "type": "padUp",
+      "station": "resonance",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 49.34,
+      "wallMs": 49386,
+      "step": 276,
+      "chord": "D minor",
+      "type": "padDown",
+      "station": "movement",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 56.39,
+      "wallMs": 56435,
+      "step": 316,
+      "chord": "B♭ major 7",
+      "type": "padUp",
+      "station": "breath",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 56.39,
+      "wallMs": 56437,
+      "step": 316,
+      "chord": "B♭ major 7",
+      "type": "padDown",
+      "station": "resonance",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 63.428,
+      "wallMs": 63479,
+      "step": 355,
+      "chord": "A sus4",
+      "type": "padUp",
+      "station": "pulse",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 63.44,
+      "wallMs": 63482,
+      "step": 355,
+      "chord": "A sus4",
+      "type": "padDown",
+      "station": "breath",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 63.44,
+      "wallMs": 63486,
+      "step": 355,
+      "chord": "A sus4",
+      "type": "padUp",
+      "station": "movement",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 70.478,
+      "wallMs": 70530,
+      "step": 395,
+      "chord": "D minor",
+      "type": "padDown",
+      "station": "pulse",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 70.49,
+      "wallMs": 70533,
+      "step": 395,
+      "chord": "D minor",
+      "type": "padUp",
+      "station": "resonance",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 70.49,
+      "wallMs": 70536,
+      "step": 395,
+      "chord": "D minor",
+      "type": "padDown",
+      "station": "movement",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 77.537,
+      "wallMs": 77584,
+      "step": 434,
+      "chord": "B♭ major 7",
+      "type": "padUp",
+      "station": "breath",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 77.537,
+      "wallMs": 77586,
+      "step": 434,
+      "chord": "B♭ major 7",
+      "type": "padDown",
+      "station": "resonance",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 84.55,
+      "wallMs": 84633,
+      "step": 473,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "pulse",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 84.55,
+      "wallMs": 84635,
+      "step": 473,
+      "chord": "G minor 9",
+      "type": "padDown",
+      "station": "breath",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 84.55,
+      "wallMs": 84638,
+      "step": 473,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "movement",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 91.559,
+      "wallMs": 91679,
+      "step": 513,
+      "chord": "D minor",
+      "type": "padDown",
+      "station": "pulse",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 91.568,
+      "wallMs": 91682,
+      "step": 513,
+      "chord": "D minor",
+      "type": "padUp",
+      "station": "resonance",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 91.568,
+      "wallMs": 91683,
+      "step": 513,
+      "chord": "D minor",
+      "type": "padDown",
+      "station": "movement",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 98.609,
+      "wallMs": 98728,
+      "step": 552,
+      "chord": "B♭ major 7",
+      "type": "padUp",
+      "station": "breath",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 98.609,
+      "wallMs": 98729,
+      "step": 552,
+      "chord": "B♭ major 7",
+      "type": "padDown",
+      "station": "resonance",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 105.654,
+      "wallMs": 105781,
+      "step": 592,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "pulse",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 105.66,
+      "wallMs": 105782,
+      "step": 592,
+      "chord": "G minor 9",
+      "type": "padDown",
+      "station": "breath",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 105.66,
+      "wallMs": 105785,
+      "step": 592,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "movement",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 112.71,
+      "wallMs": 112834,
+      "step": 631,
+      "chord": "A sus4",
+      "type": "padDown",
+      "station": "pulse",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 112.71,
+      "wallMs": 112837,
+      "step": 631,
+      "chord": "A sus4",
+      "type": "padUp",
+      "station": "resonance",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 112.71,
+      "wallMs": 112838,
+      "step": 631,
+      "chord": "A sus4",
+      "type": "padDown",
+      "station": "movement",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 119.809,
+      "wallMs": 119934,
+      "step": 671,
+      "chord": "D minor",
+      "type": "padUp",
+      "station": "breath",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 119.809,
+      "wallMs": 119935,
+      "step": 671,
+      "chord": "D minor",
+      "type": "padDown",
+      "station": "resonance",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 126.848,
+      "wallMs": 126979,
+      "step": 710,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "pulse",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 126.848,
+      "wallMs": 126980,
+      "step": 710,
+      "chord": "G minor 9",
+      "type": "padDown",
+      "station": "breath",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 126.859,
+      "wallMs": 126983,
+      "step": 710,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "movement",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 132.888,
+      "wallMs": 133018,
+      "step": 744,
+      "chord": "A sus4",
+      "type": "padDown",
+      "station": "pulse",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 132.899,
+      "wallMs": 133025,
+      "step": 744,
+      "chord": "A sus4",
+      "type": "padUp",
+      "station": "resonance",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 132.899,
+      "wallMs": 133027,
+      "step": 744,
+      "chord": "A sus4",
+      "type": "padDown",
+      "station": "movement",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 139.938,
+      "wallMs": 140066,
+      "step": 784,
+      "chord": "D minor",
+      "type": "padUp",
+      "station": "breath",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 139.938,
+      "wallMs": 140067,
+      "step": 784,
+      "chord": "D minor",
+      "type": "padDown",
+      "station": "resonance",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 146.988,
+      "wallMs": 147114,
+      "step": 823,
+      "chord": "B♭ major 7",
+      "type": "padUp",
+      "station": "pulse",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 146.988,
+      "wallMs": 147115,
+      "step": 823,
+      "chord": "B♭ major 7",
+      "type": "padDown",
+      "station": "breath",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 146.988,
+      "wallMs": 147118,
+      "step": 823,
+      "chord": "B♭ major 7",
+      "type": "padUp",
+      "station": "movement",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 154.038,
+      "wallMs": 154162,
+      "step": 863,
+      "chord": "G minor 9",
+      "type": "padDown",
+      "station": "pulse",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 154.038,
+      "wallMs": 154165,
+      "step": 863,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "resonance",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 154.038,
+      "wallMs": 154166,
+      "step": 863,
+      "chord": "G minor 9",
+      "type": "padDown",
+      "station": "movement",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 161.088,
+      "wallMs": 161218,
+      "step": 902,
+      "chord": "D minor",
+      "type": "padUp",
+      "station": "breath",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 161.088,
+      "wallMs": 161220,
+      "step": 902,
+      "chord": "D minor",
+      "type": "padDown",
+      "station": "resonance",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 168.147,
+      "wallMs": 168275,
+      "step": 942,
+      "chord": "B♭ major 7",
+      "type": "padUp",
+      "station": "pulse",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 168.147,
+      "wallMs": 168276,
+      "step": 942,
+      "chord": "B♭ major 7",
+      "type": "padDown",
+      "station": "breath",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 168.147,
+      "wallMs": 168279,
+      "step": 942,
+      "chord": "B♭ major 7",
+      "type": "padUp",
+      "station": "movement",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 175.18,
+      "wallMs": 175311,
+      "step": 981,
+      "chord": "G minor 9",
+      "type": "padDown",
+      "station": "pulse",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 175.189,
+      "wallMs": 175313,
+      "step": 981,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "resonance",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 175.189,
+      "wallMs": 175314,
+      "step": 981,
+      "chord": "G minor 9",
+      "type": "padDown",
+      "station": "movement",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 178.199,
+      "wallMs": 178330,
+      "step": 998,
+      "chord": "A sus4",
+      "type": "padUp",
+      "station": "pulse",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 178.207,
+      "wallMs": 178333,
+      "step": 998,
+      "chord": "A sus4",
+      "type": "padUp",
+      "station": "breath",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 178.207,
+      "wallMs": 178335,
+      "step": 998,
+      "chord": "A sus4",
+      "type": "padUp",
+      "station": "movement",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 179.879,
+      "wallMs": 180001,
+      "step": 1007,
+      "type": "stop",
+      "reason": "timer",
+      "active": {
+        "pulse": false,
+        "breath": false,
+        "resonance": false,
+        "movement": false
+      }
+    }
+  ]
+}

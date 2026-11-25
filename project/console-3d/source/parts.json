@@ -1,0 +1,1038 @@
+{
+ "parameters": {
+  "width": 2400,
+  "depth": 840,
+  "deck_top": 850,
+  "deck_thk": 60,
+  "station_x": [
+   -900,
+   -300,
+   300,
+   900
+  ],
+  "station_names": [
+   "PULSE",
+   "BREATH",
+   "RESONANCE",
+   "MOVEMENT"
+  ],
+  "plate_w": 520,
+  "plate_d": 250,
+  "plate_cy": -255,
+  "pad_dx": -95,
+  "pad_d": 166,
+  "knob_dx": 135,
+  "knob_d": 64,
+  "knob_h": 40,
+  "knob_values": [
+   0.45,
+   0.5,
+   0.4,
+   0.75
+  ],
+  "leg_x": [
+   1030,
+   1150
+  ],
+  "leg_y": [
+   -260,
+   380
+  ],
+  "spine_y": [
+   120,
+   380
+  ],
+  "plinth_h": 40,
+  "mast_y": [
+   290,
+   390
+  ],
+  "mast_w": 140,
+  "mast_top": 1365,
+  "screen_outer": [
+   800,
+   92,
+   490
+  ],
+  "screen_glass": [
+   740,
+   430
+  ],
+  "screen_cy": 200,
+  "screen_cz": 1265,
+  "screen_tilt": 8,
+  "spk_size": [
+   280,
+   120,
+   210
+  ],
+  "spk_x": 620,
+  "spk_cy": 200,
+  "spk_cz": 1350,
+  "spk_pitch": 0
+ },
+ "parts": [
+  {
+   "name": "deck_top",
+   "material": "powder_light",
+   "stl": "deck_top.stl",
+   "bbox_mm": [
+    -1200.0,
+    -420.0,
+    790.0,
+    1200.0,
+    420.0,
+    850.0
+   ]
+  },
+  {
+   "name": "pulse_control_plate",
+   "material": "stainless",
+   "stl": "pulse_control_plate.stl",
+   "bbox_mm": [
+    -1160.0,
+    -380.0,
+    847.0,
+    -640.0,
+    -130.0,
+    850.0
+   ]
+  },
+  {
+   "name": "pulse_screw_LF",
+   "material": "stainless_dark",
+   "stl": "pulse_screw_LF.stl",
+   "bbox_mm": [
+    -1146.5,
+    -366.5,
+    850.0,
+    -1137.5,
+    -357.5,
+    850.6
+   ]
+  },
+  {
+   "name": "pulse_screw_LB",
+   "material": "stainless_dark",
+   "stl": "pulse_screw_LB.stl",
+   "bbox_mm": [
+    -1146.5,
+    -152.5,
+    850.0,
+    -1137.5,
+    -143.5,
+    850.6
+   ]
+  },
+  {
+   "name": "pulse_screw_RF",
+   "material": "stainless_dark",
+   "stl": "pulse_screw_RF.stl",
+   "bbox_mm": [
+    -662.5,
+    -366.5,
+    850.0,
+    -653.5,
+    -357.5,
+    850.6
+   ]
+  },
+  {
+   "name": "pulse_screw_RB",
+   "material": "stainless_dark",
+   "stl": "pulse_screw_RB.stl",
+   "bbox_mm": [
+    -662.5,
+    -152.5,
+    850.0,
+    -653.5,
+    -143.5,
+    850.6
+   ]
+  },
+  {
+   "name": "pulse_pad_bezel",
+   "material": "stainless",
+   "stl": "pulse_pad_bezel.stl",
+   "bbox_mm": [
+    -1095.0,
+    -355.0,
+    847.0,
+    -895.0,
+    -155.0,
+    856.0
+   ]
+  },
+  {
+   "name": "pulse_pad_colour_ring",
+   "material": "accent_pulse",
+   "stl": "pulse_pad_colour_ring.stl",
+   "bbox_mm": [
+    -1084.0,
+    -344.0,
+    847.0,
+    -906.0,
+    -166.0,
+    855.0
+   ]
+  },
+  {
+   "name": "pulse_pad_diffuser",
+   "material": "diffuser",
+   "stl": "pulse_pad_diffuser.stl",
+   "bbox_mm": [
+    -1078.0,
+    -338.0,
+    847.0,
+    -912.0,
+    -172.0,
+    857.5
+   ]
+  },
+  {
+   "name": "pulse_knob_collar",
+   "material": "stainless",
+   "stl": "pulse_knob_collar.stl",
+   "bbox_mm": [
+    -813.0,
+    -303.0,
+    850.0,
+    -717.0,
+    -207.0,
+    854.0
+   ]
+  },
+  {
+   "name": "pulse_knob",
+   "material": "anodised_dark",
+   "stl": "pulse_knob.stl",
+   "bbox_mm": [
+    -797.0,
+    -287.0,
+    854.0,
+    -733.0,
+    -223.0,
+    894.0
+   ]
+  },
+  {
+   "name": "pulse_tactile_dot_1",
+   "material": "powder_light",
+   "stl": "pulse_tactile_dot_1.stl",
+   "bbox_mm": [
+    -999.0,
+    -402.0,
+    844.5,
+    -991.0,
+    -394.0,
+    852.5
+   ]
+  },
+  {
+   "name": "breath_control_plate",
+   "material": "stainless",
+   "stl": "breath_control_plate.stl",
+   "bbox_mm": [
+    -560.0,
+    -380.0,
+    847.0,
+    -40.0,
+    -130.0,
+    850.0
+   ]
+  },
+  {
+   "name": "breath_screw_LF",
+   "material": "stainless_dark",
+   "stl": "breath_screw_LF.stl",
+   "bbox_mm": [
+    -546.5,
+    -366.5,
+    850.0,
+    -537.5,
+    -357.5,
+    850.6
+   ]
+  },
+  {
+   "name": "breath_screw_LB",
+   "material": "stainless_dark",
+   "stl": "breath_screw_LB.stl",
+   "bbox_mm": [
+    -546.5,
+    -152.5,
+    850.0,
+    -537.5,
+    -143.5,
+    850.6
+   ]
+  },
+  {
+   "name": "breath_screw_RF",
+   "material": "stainless_dark",
+   "stl": "breath_screw_RF.stl",
+   "bbox_mm": [
+    -62.5,
+    -366.5,
+    850.0,
+    -53.5,
+    -357.5,
+    850.6
+   ]
+  },
+  {
+   "name": "breath_screw_RB",
+   "material": "stainless_dark",
+   "stl": "breath_screw_RB.stl",
+   "bbox_mm": [
+    -62.5,
+    -152.5,
+    850.0,
+    -53.5,
+    -143.5,
+    850.6
+   ]
+  },
+  {
+   "name": "breath_pad_bezel",
+   "material": "stainless",
+   "stl": "breath_pad_bezel.stl",
+   "bbox_mm": [
+    -495.0,
+    -355.0,
+    847.0,
+    -295.0,
+    -155.0,
+    856.0
+   ]
+  },
+  {
+   "name": "breath_pad_colour_ring",
+   "material": "accent_breath",
+   "stl": "breath_pad_colour_ring.stl",
+   "bbox_mm": [
+    -484.0,
+    -344.0,
+    847.0,
+    -306.0,
+    -166.0,
+    855.0
+   ]
+  },
+  {
+   "name": "breath_pad_diffuser",
+   "material": "diffuser",
+   "stl": "breath_pad_diffuser.stl",
+   "bbox_mm": [
+    -478.0,
+    -338.0,
+    847.0,
+    -312.0,
+    -172.0,
+    857.5
+   ]
+  },
+  {
+   "name": "breath_knob_collar",
+   "material": "stainless",
+   "stl": "breath_knob_collar.stl",
+   "bbox_mm": [
+    -213.0,
+    -303.0,
+    850.0,
+    -117.0,
+    -207.0,
+    854.0
+   ]
+  },
+  {
+   "name": "breath_knob",
+   "material": "anodised_dark",
+   "stl": "breath_knob.stl",
+   "bbox_mm": [
+    -197.0,
+    -287.0,
+    854.0,
+    -133.0,
+    -223.0,
+    894.0
+   ]
+  },
+  {
+   "name": "breath_tactile_dot_1",
+   "material": "powder_light",
+   "stl": "breath_tactile_dot_1.stl",
+   "bbox_mm": [
+    -406.0,
+    -402.0,
+    844.5,
+    -398.0,
+    -394.0,
+    852.5
+   ]
+  },
+  {
+   "name": "breath_tactile_dot_2",
+   "material": "powder_light",
+   "stl": "breath_tactile_dot_2.stl",
+   "bbox_mm": [
+    -392.0,
+    -402.0,
+    844.5,
+    -384.0,
+    -394.0,
+    852.5
+   ]
+  },
+  {
+   "name": "resonance_control_plate",
+   "material": "stainless",
+   "stl": "resonance_control_plate.stl",
+   "bbox_mm": [
+    40.0,
+    -380.0,
+    847.0,
+    560.0,
+    -130.0,
+    850.0
+   ]
+  },
+  {
+   "name": "resonance_screw_LF",
+   "material": "stainless_dark",
+   "stl": "resonance_screw_LF.stl",
+   "bbox_mm": [
+    53.5,
+    -366.5,
+    850.0,
+    62.5,
+    -357.5,
+    850.6
+   ]
+  },
+  {
+   "name": "resonance_screw_LB",
+   "material": "stainless_dark",
+   "stl": "resonance_screw_LB.stl",
+   "bbox_mm": [
+    53.5,
+    -152.5,
+    850.0,
+    62.5,
+    -143.5,
+    850.6
+   ]
+  },
+  {
+   "name": "resonance_screw_RF",
+   "material": "stainless_dark",
+   "stl": "resonance_screw_RF.stl",
+   "bbox_mm": [
+    537.5,
+    -366.5,
+    850.0,
+    546.5,
+    -357.5,
+    850.6
+   ]
+  },
+  {
+   "name": "resonance_screw_RB",
+   "material": "stainless_dark",
+   "stl": "resonance_screw_RB.stl",
+   "bbox_mm": [
+    537.5,
+    -152.5,
+    850.0,
+    546.5,
+    -143.5,
+    850.6
+   ]
+  },
+  {
+   "name": "resonance_pad_bezel",
+   "material": "stainless",
+   "stl": "resonance_pad_bezel.stl",
+   "bbox_mm": [
+    105.0,
+    -355.0,
+    847.0,
+    305.0,
+    -155.0,
+    856.0
+   ]
+  },
+  {
+   "name": "resonance_pad_colour_ring",
+   "material": "accent_resonance",
+   "stl": "resonance_pad_colour_ring.stl",
+   "bbox_mm": [
+    116.0,
+    -344.0,
+    847.0,
+    294.0,
+    -166.0,
+    855.0
+   ]
+  },
+  {
+   "name": "resonance_pad_diffuser",
+   "material": "diffuser",
+   "stl": "resonance_pad_diffuser.stl",
+   "bbox_mm": [
+    122.0,
+    -338.0,
+    847.0,
+    288.0,
+    -172.0,
+    857.5
+   ]
+  },
+  {
+   "name": "resonance_knob_collar",
+   "material": "stainless",
+   "stl": "resonance_knob_collar.stl",
+   "bbox_mm": [
+    387.0,
+    -303.0,
+    850.0,
+    483.0,
+    -207.0,
+    854.0
+   ]
+  },
+  {
+   "name": "resonance_knob",
+   "material": "anodised_dark",
+   "stl": "resonance_knob.stl",
+   "bbox_mm": [
+    403.0,
+    -287.0,
+    854.0,
+    467.0,
+    -223.0,
+    894.0
+   ]
+  },
+  {
+   "name": "resonance_tactile_dot_1",
+   "material": "powder_light",
+   "stl": "resonance_tactile_dot_1.stl",
+   "bbox_mm": [
+    187.0,
+    -402.0,
+    844.5,
+    195.0,
+    -394.0,
+    852.5
+   ]
+  },
+  {
+   "name": "resonance_tactile_dot_2",
+   "material": "powder_light",
+   "stl": "resonance_tactile_dot_2.stl",
+   "bbox_mm": [
+    201.0,
+    -402.0,
+    844.5,
+    209.0,
+    -394.0,
+    852.5
+   ]
+  },
+  {
+   "name": "resonance_tactile_dot_3",
+   "material": "powder_light",
+   "stl": "resonance_tactile_dot_3.stl",
+   "bbox_mm": [
+    215.0,
+    -402.0,
+    844.5,
+    223.0,
+    -394.0,
+    852.5
+   ]
+  },
+  {
+   "name": "movement_control_plate",
+   "material": "stainless",
+   "stl": "movement_control_plate.stl",
+   "bbox_mm": [
+    640.0,
+    -380.0,
+    847.0,
+    1160.0,
+    -130.0,
+    850.0
+   ]
+  },
+  {
+   "name": "movement_screw_LF",
+   "material": "stainless_dark",
+   "stl": "movement_screw_LF.stl",
+   "bbox_mm": [
+    653.5,
+    -366.5,
+    850.0,
+    662.5,
+    -357.5,
+    850.6
+   ]
+  },
+  {
+   "name": "movement_screw_LB",
+   "material": "stainless_dark",
+   "stl": "movement_screw_LB.stl",
+   "bbox_mm": [
+    653.5,
+    -152.5,
+    850.0,
+    662.5,
+    -143.5,
+    850.6
+   ]
+  },
+  {
+   "name": "movement_screw_RF",
+   "material": "stainless_dark",
+   "stl": "movement_screw_RF.stl",
+   "bbox_mm": [
+    1137.5,
+    -366.5,
+    850.0,
+    1146.5,
+    -357.5,
+    850.6
+   ]
+  },
+  {
+   "name": "movement_screw_RB",
+   "material": "stainless_dark",
+   "stl": "movement_screw_RB.stl",
+   "bbox_mm": [
+    1137.5,
+    -152.5,
+    850.0,
+    1146.5,
+    -143.5,
+    850.6
+   ]
+  },
+  {
+   "name": "movement_pad_bezel",
+   "material": "stainless",
+   "stl": "movement_pad_bezel.stl",
+   "bbox_mm": [
+    705.0,
+    -355.0,
+    847.0,
+    905.0,
+    -155.0,
+    856.0
+   ]
+  },
+  {
+   "name": "movement_pad_colour_ring",
+   "material": "accent_movement",
+   "stl": "movement_pad_colour_ring.stl",
+   "bbox_mm": [
+    716.0,
+    -344.0,
+    847.0,
+    894.0,
+    -166.0,
+    855.0
+   ]
+  },
+  {
+   "name": "movement_pad_diffuser",
+   "material": "diffuser",
+   "stl": "movement_pad_diffuser.stl",
+   "bbox_mm": [
+    722.0,
+    -338.0,
+    847.0,
+    888.0,
+    -172.0,
+    857.5
+   ]
+  },
+  {
+   "name": "movement_knob_collar",
+   "material": "stainless",
+   "stl": "movement_knob_collar.stl",
+   "bbox_mm": [
+    987.0,
+    -303.0,
+    850.0,
+    1083.0,
+    -207.0,
+    854.0
+   ]
+  },
+  {
+   "name": "movement_knob",
+   "material": "anodised_dark",
+   "stl": "movement_knob.stl",
+   "bbox_mm": [
+    1003.0,
+    -287.0,
+    854.0,
+    1067.0,
+    -223.0,
+    894.0
+   ]
+  },
+  {
+   "name": "movement_tactile_dot_1",
+   "material": "powder_light",
+   "stl": "movement_tactile_dot_1.stl",
+   "bbox_mm": [
+    780.0,
+    -402.0,
+    844.5,
+    788.0,
+    -394.0,
+    852.5
+   ]
+  },
+  {
+   "name": "movement_tactile_dot_2",
+   "material": "powder_light",
+   "stl": "movement_tactile_dot_2.stl",
+   "bbox_mm": [
+    794.0,
+    -402.0,
+    844.5,
+    802.0,
+    -394.0,
+    852.5
+   ]
+  },
+  {
+   "name": "movement_tactile_dot_3",
+   "material": "powder_light",
+   "stl": "movement_tactile_dot_3.stl",
+   "bbox_mm": [
+    808.0,
+    -402.0,
+    844.5,
+    816.0,
+    -394.0,
+    852.5
+   ]
+  },
+  {
+   "name": "movement_tactile_dot_4",
+   "material": "powder_light",
+   "stl": "movement_tactile_dot_4.stl",
+   "bbox_mm": [
+    822.0,
+    -402.0,
+    844.5,
+    830.0,
+    -394.0,
+    852.5
+   ]
+  },
+  {
+   "name": "left_end_leg",
+   "material": "powder_mid",
+   "stl": "left_end_leg.stl",
+   "bbox_mm": [
+    -1150.0,
+    -260.0,
+    40.0,
+    -1030.0,
+    380.0,
+    790.0
+   ]
+  },
+  {
+   "name": "left_leg_plinth",
+   "material": "plinth",
+   "stl": "left_leg_plinth.stl",
+   "bbox_mm": [
+    -1135.0,
+    -245.0,
+    -0.0,
+    -1045.0,
+    365.0,
+    40.0
+   ]
+  },
+  {
+   "name": "right_end_leg",
+   "material": "powder_mid",
+   "stl": "right_end_leg.stl",
+   "bbox_mm": [
+    1030.0,
+    -260.0,
+    40.0,
+    1150.0,
+    380.0,
+    790.0
+   ]
+  },
+  {
+   "name": "right_leg_plinth",
+   "material": "plinth",
+   "stl": "right_leg_plinth.stl",
+   "bbox_mm": [
+    1045.0,
+    -245.0,
+    -0.0,
+    1135.0,
+    365.0,
+    40.0
+   ]
+  },
+  {
+   "name": "rear_service_spine",
+   "material": "powder_core",
+   "stl": "rear_service_spine.stl",
+   "bbox_mm": [
+    -1030.0,
+    120.0,
+    40.0,
+    1030.0,
+    380.0,
+    790.0
+   ]
+  },
+  {
+   "name": "service_door_lock_L",
+   "material": "stainless_dark",
+   "stl": "service_door_lock_L.stl",
+   "bbox_mm": [
+    -71.0,
+    380.0,
+    549.0,
+    -49.0,
+    386.0,
+    571.0
+   ]
+  },
+  {
+   "name": "service_door_lock_R",
+   "material": "stainless_dark",
+   "stl": "service_door_lock_R.stl",
+   "bbox_mm": [
+    49.0,
+    380.0,
+    549.0,
+    71.0,
+    386.0,
+    571.0
+   ]
+  },
+  {
+   "name": "spine_plinth",
+   "material": "plinth",
+   "stl": "spine_plinth.stl",
+   "bbox_mm": [
+    -1015.0,
+    135.0,
+    -0.0,
+    1015.0,
+    365.0,
+    40.0
+   ]
+  },
+  {
+   "name": "screen_mast",
+   "material": "powder_dark",
+   "stl": "screen_mast.stl",
+   "bbox_mm": [
+    -70.0,
+    290.0,
+    790.0,
+    70.0,
+    390.0,
+    1365.0
+   ]
+  },
+  {
+   "name": "mast_base_flange",
+   "material": "powder_dark",
+   "stl": "mast_base_flange.stl",
+   "bbox_mm": [
+    -110.0,
+    265.0,
+    850.0,
+    110.0,
+    415.0,
+    858.0
+   ]
+  },
+  {
+   "name": "speaker_crossbar",
+   "material": "powder_dark",
+   "stl": "speaker_crossbar.stl",
+   "bbox_mm": [
+    -640.0,
+    305.0,
+    1305.0,
+    640.0,
+    365.0,
+    1365.0
+   ]
+  },
+  {
+   "name": "display_enclosure_32in",
+   "material": "powder_dark",
+   "stl": "display_enclosure_32in.stl",
+   "bbox_mm": [
+    -400.0,
+    120.3,
+    1016.0,
+    400.0,
+    279.7,
+    1514.0
+   ]
+  },
+  {
+   "name": "display_glass",
+   "material": "screen_glass",
+   "stl": "display_glass.stl",
+   "bbox_mm": [
+    -370.0,
+    126.0,
+    1057.8,
+    370.0,
+    189.3,
+    1484.1
+   ]
+  },
+  {
+   "name": "display_sun_hood",
+   "material": "powder_dark",
+   "stl": "display_sun_hood.stl",
+   "bbox_mm": [
+    -410.0,
+    94.5,
+    1395.2,
+    410.0,
+    280.3,
+    1532.2
+   ]
+  },
+  {
+   "name": "display_vesa_bracket",
+   "material": "stainless_dark",
+   "stl": "display_vesa_bracket.stl",
+   "bbox_mm": [
+    -100.0,
+    231.6,
+    1152.6,
+    100.0,
+    309.0,
+    1357.6
+   ]
+  },
+  {
+   "name": "left_directional_speaker",
+   "material": "powder_dark",
+   "stl": "left_directional_speaker.stl",
+   "bbox_mm": [
+    -760.0,
+    140.0,
+    1245.0,
+    -480.0,
+    260.0,
+    1455.0
+   ]
+  },
+  {
+   "name": "left_speaker_grille",
+   "material": "grille",
+   "stl": "left_speaker_grille.stl",
+   "bbox_mm": [
+    -747.0,
+    141.5,
+    1258.0,
+    -493.0,
+    144.0,
+    1442.0
+   ]
+  },
+  {
+   "name": "left_speaker_yoke",
+   "material": "stainless_dark",
+   "stl": "left_speaker_yoke.stl",
+   "bbox_mm": [
+    -778.0,
+    170.0,
+    1318.0,
+    -462.0,
+    285.0,
+    1382.0
+   ]
+  },
+  {
+   "name": "left_speaker_arm",
+   "material": "powder_dark",
+   "stl": "left_speaker_arm.stl",
+   "bbox_mm": [
+    -645.0,
+    285.0,
+    1310.0,
+    -595.0,
+    307.0,
+    1360.0
+   ]
+  },
+  {
+   "name": "right_directional_speaker",
+   "material": "powder_dark",
+   "stl": "right_directional_speaker.stl",
+   "bbox_mm": [
+    480.0,
+    140.0,
+    1245.0,
+    760.0,
+    260.0,
+    1455.0
+   ]
+  },
+  {
+   "name": "right_speaker_grille",
+   "material": "grille",
+   "stl": "right_speaker_grille.stl",
+   "bbox_mm": [
+    493.0,
+    141.5,
+    1258.0,
+    747.0,
+    144.0,
+    1442.0
+   ]
+  },
+  {
+   "name": "right_speaker_yoke",
+   "material": "stainless_dark",
+   "stl": "right_speaker_yoke.stl",
+   "bbox_mm": [
+    462.0,
+    170.0,
+    1318.0,
+    778.0,
+    285.0,
+    1382.0
+   ]
+  },
+  {
+   "name": "right_speaker_arm",
+   "material": "powder_dark",
+   "stl": "right_speaker_arm.stl",
+   "bbox_mm": [
+    595.0,
+    285.0,
+    1310.0,
+    645.0,
+    307.0,
+    1360.0
+   ]
+  }
+ ]
+}

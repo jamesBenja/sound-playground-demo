@@ -1,0 +1,49 @@
+PASS Page loads with no console errors
+PASS No audio context before a user gesture  — none
+PASS Four pads and four rotary dials present
+PASS No horizontal scroll at 390px (mobile)  — overflow 0px
+PASS No horizontal scroll at 820px (tablet)  — overflow 0px
+PASS Enable sound starts the AudioContext  — running
+PASS Pressing Enable again keeps one running context and correct status  — Sound on. Press and hold the pads; turn the dials.
+PASS Mouse hold activates PULSE and schedules sound  — liveSources 4
+PASS Mouse release stops PULSE
+PASS Holding key 2 sustains BREATH (repeat ignored)
+PASS Releasing key 2 releases BREATH
+PASS Keys 1, 3, 4 held together all play
+PASS Focused pad plays with Space (keyboard accessibility)
+PASS Four simultaneous touches: all four stations active  — {"pulse":true,"breath":true,"resonance":true,"movement":true}
+PASS Players counter shows 4 of 4
+PASS Lifting two fingers releases only those two stations  — {"pulse":true,"breath":true,"resonance":false,"movement":false}
+PASS Lifting all fingers releases all stations
+PASS Dragging the RESONANCE dial clockwise 90° raises it by ~1/3  — 0.40 → 0.73
+PASS Dial keyboard control (End, ArrowDown) works
+PASS Mouse wheel turns a dial
+PASS All four voices at max volume and max dials: output never reaches full scale  — post-limiter peak 0.767 (-2.3 dBFS), pre-limiter peak 0.544, live sources 29
+PASS Voice count stays bounded under full load  — 29 live sources
+PASS After 300 random press/release/cancel events: no station stuck  — {"pulse":0,"breath":0,"resonance":0,"movement":0}
+PASS After release, every audio source has ended (no stuck notes)  — 0 live sources
+PASS Window blur while holding releases the note  — live 0
+PASS Recording starts
+PASS Stopped-early recording: file has a video stream  — vp9 1280x720
+PASS Stopped-early recording: file has a stereo audio stream  — opus 2 ch 48000 Hz
+PASS Stopped-early recording: decoded length ≈ 6s  — 6.33 s, 191 video frames
+PASS Stopped-early recording: audio is audible and not clipped  — mean -22.3 dB, peak -4.9 dB
+PASS Stopped-early recording: gesture log has timestamped events in order  — 10 events, last t=6.362
+PASS Stopped-early: log has pad downs/ups for played stations and stopReason user  — 4 down / 4 up
+PASS 30-second recording: file has a video stream  — vp9 1280x720
+PASS 30-second recording: file has a stereo audio stream  — opus 2 ch 48000 Hz
+PASS 30-second recording: decoded length ≈ 30s  — 29.96 s, 900 video frames
+PASS 30-second recording: audio is audible and not clipped  — mean -23.1 dB, peak -4.3 dB
+PASS 30-second recording: gesture log has timestamped events in order  — 10 events, last t=29.997
+PASS 30-second recording stops itself (stopReason timer)  — durationSeconds 29.997
+PASS No console errors during the whole interactive session
+PASS Pressing a pad first starts audio and plays the note  — running, 10 sources
+PASS 3-minute recording: file has a video stream  — vp9 1280x720
+PASS 3-minute recording: file has a stereo audio stream  — opus 2 ch 48000 Hz
+PASS 3-minute recording: decoded length ≈ 180s  — 179.96 s, 5395 video frames
+PASS 3-minute recording: audio is audible and not clipped  — mean -23 dB, peak -3.8 dB
+PASS 3-minute recording: gesture log has timestamped events in order  — 74 events, last t=179.981
+PASS 3-minute recording stops itself (stopReason timer)  — durationSeconds 179.981, 74 events
+PASS No console errors during the 3-minute session
+
+47/47 checks passed

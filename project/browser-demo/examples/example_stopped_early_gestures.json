@@ -1,0 +1,158 @@
+{
+  "project": "SOUND PLAYGROUND browser sketch 0.2",
+  "createdAt": "2026-11-25T06:07:02.199Z",
+  "mimeType": "video/webm;codecs=vp9,opus",
+  "durationSeconds": 6.359,
+  "requestedSeconds": 30,
+  "stopReason": "user",
+  "clock": "t = seconds on the Web Audio clock since recording start (aligned with the recorded audio); wallMs = page clock; step = sixteenth-note index",
+  "music": {
+    "tempoBpm": 84,
+    "stepSeconds": 0.178571,
+    "stepsPerChord": 32,
+    "progression": [
+      "D minor",
+      "B♭ major 7",
+      "G minor 9",
+      "A sus4"
+    ]
+  },
+  "stations": [
+    {
+      "id": "pulse",
+      "dial": "Density",
+      "default": 0.45
+    },
+    {
+      "id": "breath",
+      "dial": "Tone",
+      "default": 0.5
+    },
+    {
+      "id": "resonance",
+      "dial": "Colour",
+      "default": 0.4
+    },
+    {
+      "id": "movement",
+      "dial": "Direction",
+      "default": 0.75
+    }
+  ],
+  "note": "Browser sketch. Audio is Web Audio synthesis and video is a schematic Palace; not Max/MSP or Notch output. Event replay is not implemented.",
+  "events": [
+    {
+      "t": 0,
+      "wallMs": 0,
+      "step": 46,
+      "chord": "B♭ major 7",
+      "type": "initial",
+      "knobs": {
+        "pulse": 0.45,
+        "breath": 0.5,
+        "resonance": 0.4,
+        "movement": 0.75
+      },
+      "active": {
+        "pulse": false,
+        "breath": false,
+        "resonance": false,
+        "movement": false
+      },
+      "volume": 0.7
+    },
+    {
+      "t": 0.299,
+      "wallMs": 305,
+      "step": 48,
+      "chord": "B♭ major 7",
+      "type": "padDown",
+      "station": "pulse",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 0.299,
+      "wallMs": 307,
+      "step": 48,
+      "chord": "B♭ major 7",
+      "type": "padDown",
+      "station": "breath",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 2.81,
+      "wallMs": 2814,
+      "step": 62,
+      "chord": "B♭ major 7",
+      "type": "padDown",
+      "station": "resonance",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 4.31,
+      "wallMs": 4318,
+      "step": 70,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "resonance",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 4.319,
+      "wallMs": 4319,
+      "step": 70,
+      "chord": "G minor 9",
+      "type": "padDown",
+      "station": "movement",
+      "value": 1,
+      "source": "key"
+    },
+    {
+      "t": 5.82,
+      "wallMs": 5823,
+      "step": 79,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "pulse",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 5.82,
+      "wallMs": 5826,
+      "step": 79,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "breath",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 5.828,
+      "wallMs": 5833,
+      "step": 79,
+      "chord": "G minor 9",
+      "type": "padUp",
+      "station": "movement",
+      "value": 0,
+      "source": "key"
+    },
+    {
+      "t": 6.359,
+      "wallMs": 6367,
+      "step": 82,
+      "type": "stop",
+      "reason": "user",
+      "active": {
+        "pulse": false,
+        "breath": false,
+        "resonance": false,
+        "movement": false
+      }
+    }
+  ]
+}

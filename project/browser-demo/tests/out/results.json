@@ -1,0 +1,242 @@
+{
+  "when": "2026-11-25T06:43:47.844Z",
+  "long": true,
+  "failures": 0,
+  "results": [
+    {
+      "name": "Page loads with no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "No audio context before a user gesture",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "name": "Four pads and four rotary dials present",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "No horizontal scroll at 390px (mobile)",
+      "ok": true,
+      "detail": "overflow 0px"
+    },
+    {
+      "name": "No horizontal scroll at 820px (tablet)",
+      "ok": true,
+      "detail": "overflow 0px"
+    },
+    {
+      "name": "Enable sound starts the AudioContext",
+      "ok": true,
+      "detail": "running"
+    },
+    {
+      "name": "Pressing Enable again keeps one running context and correct status",
+      "ok": true,
+      "detail": "Sound on. Press and hold the pads; turn the dials."
+    },
+    {
+      "name": "Mouse hold activates PULSE and schedules sound",
+      "ok": true,
+      "detail": "liveSources 4"
+    },
+    {
+      "name": "Mouse release stops PULSE",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Holding key 2 sustains BREATH (repeat ignored)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Releasing key 2 releases BREATH",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Keys 1, 3, 4 held together all play",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Focused pad plays with Space (keyboard accessibility)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Four simultaneous touches: all four stations active",
+      "ok": true,
+      "detail": "{\"pulse\":true,\"breath\":true,\"resonance\":true,\"movement\":true}"
+    },
+    {
+      "name": "Players counter shows 4 of 4",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Lifting two fingers releases only those two stations",
+      "ok": true,
+      "detail": "{\"pulse\":true,\"breath\":true,\"resonance\":false,\"movement\":false}"
+    },
+    {
+      "name": "Lifting all fingers releases all stations",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Dragging the RESONANCE dial clockwise 90° raises it by ~1/3",
+      "ok": true,
+      "detail": "0.40 → 0.73"
+    },
+    {
+      "name": "Dial keyboard control (End, ArrowDown) works",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Mouse wheel turns a dial",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "All four voices at max volume and max dials: output never reaches full scale",
+      "ok": true,
+      "detail": "post-limiter peak 0.767 (-2.3 dBFS), pre-limiter peak 0.544, live sources 29"
+    },
+    {
+      "name": "Voice count stays bounded under full load",
+      "ok": true,
+      "detail": "29 live sources"
+    },
+    {
+      "name": "After 300 random press/release/cancel events: no station stuck",
+      "ok": true,
+      "detail": "{\"pulse\":0,\"breath\":0,\"resonance\":0,\"movement\":0}"
+    },
+    {
+      "name": "After release, every audio source has ended (no stuck notes)",
+      "ok": true,
+      "detail": "0 live sources"
+    },
+    {
+      "name": "Window blur while holding releases the note",
+      "ok": true,
+      "detail": "live 0"
+    },
+    {
+      "name": "Recording starts",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Stopped-early recording: file has a video stream",
+      "ok": true,
+      "detail": "vp9 1280x720"
+    },
+    {
+      "name": "Stopped-early recording: file has a stereo audio stream",
+      "ok": true,
+      "detail": "opus 2 ch 48000 Hz"
+    },
+    {
+      "name": "Stopped-early recording: decoded length ≈ 6s",
+      "ok": true,
+      "detail": "6.33 s, 191 video frames"
+    },
+    {
+      "name": "Stopped-early recording: audio is audible and not clipped",
+      "ok": true,
+      "detail": "mean -22.3 dB, peak -4.9 dB"
+    },
+    {
+      "name": "Stopped-early recording: gesture log has timestamped events in order",
+      "ok": true,
+      "detail": "10 events, last t=6.362"
+    },
+    {
+      "name": "Stopped-early: log has pad downs/ups for played stations and stopReason user",
+      "ok": true,
+      "detail": "4 down / 4 up"
+    },
+    {
+      "name": "30-second recording: file has a video stream",
+      "ok": true,
+      "detail": "vp9 1280x720"
+    },
+    {
+      "name": "30-second recording: file has a stereo audio stream",
+      "ok": true,
+      "detail": "opus 2 ch 48000 Hz"
+    },
+    {
+      "name": "30-second recording: decoded length ≈ 30s",
+      "ok": true,
+      "detail": "29.96 s, 900 video frames"
+    },
+    {
+      "name": "30-second recording: audio is audible and not clipped",
+      "ok": true,
+      "detail": "mean -23.1 dB, peak -4.3 dB"
+    },
+    {
+      "name": "30-second recording: gesture log has timestamped events in order",
+      "ok": true,
+      "detail": "10 events, last t=29.997"
+    },
+    {
+      "name": "30-second recording stops itself (stopReason timer)",
+      "ok": true,
+      "detail": "durationSeconds 29.997"
+    },
+    {
+      "name": "No console errors during the whole interactive session",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Pressing a pad first starts audio and plays the note",
+      "ok": true,
+      "detail": "running, 10 sources"
+    },
+    {
+      "name": "3-minute recording: file has a video stream",
+      "ok": true,
+      "detail": "vp9 1280x720"
+    },
+    {
+      "name": "3-minute recording: file has a stereo audio stream",
+      "ok": true,
+      "detail": "opus 2 ch 48000 Hz"
+    },
+    {
+      "name": "3-minute recording: decoded length ≈ 180s",
+      "ok": true,
+      "detail": "179.96 s, 5395 video frames"
+    },
+    {
+      "name": "3-minute recording: audio is audible and not clipped",
+      "ok": true,
+      "detail": "mean -23 dB, peak -3.8 dB"
+    },
+    {
+      "name": "3-minute recording: gesture log has timestamped events in order",
+      "ok": true,
+      "detail": "74 events, last t=179.981"
+    },
+    {
+      "name": "3-minute recording stops itself (stopReason timer)",
+      "ok": true,
+      "detail": "durationSeconds 179.981, 74 events"
+    },
+    {
+      "name": "No console errors during the 3-minute session",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}
